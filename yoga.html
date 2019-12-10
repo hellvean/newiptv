@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="page-view-size" content="1280*720" />
+<link rel="stylesheet" href="css/reset.css" />
+<title></title>
+<style>
+.content{
+	width: 1280px;
+	height: 720px;
+	position: relative;
+	background: url(images/classify/bg.png) no-repeat center;
+	background-size: 100% 100%;
+}
+.tab-wrap{
+	height: 70px;
+	width: 1120px;
+	margin: 0 auto;
+	padding-top: 40px;
+}
+.title{
+	width:200px;
+	height:50px;
+	font-size:48px;
+	font-weight:bold;
+	color:rgba(255,255,255,1);
+	line-height: 50px;
+	margin-right: 80px;
+}
+.tab-list{
+	padding-top: 15px;
+}
+.tab-item{
+	width:120px;
+	height:28px;
+	font-size:28px;
+	font-weight:400;
+	color:rgba(204,204,204,1);
+	line-height:24px;
+	margin-right: 40px;
+}
+.tab-list .active{
+	font-weight:bold;
+	color:rgba(255,255,255,1);
+	padding-bottom: 15px;
+	/* border-bottom: 4px solid #FFCB05; */
+	background: url(images/classify/tabborder.png) no-repeat center bottom;
+}
+.content-list{
+	font-size: 0;
+	padding: 0 80px;
+}
+.content-list .content-item{
+	width: 350px;
+	height: 260px;
+	border-radius:10px;
+	position: relative;
+	margin-top: 20px;
+}
+.content-mask{
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 99;
+	border-radius: 12px;
+}
+.content-cover{
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+.content-info{
+	width: 100%;
+	height: 90px;
+	position: absolute;
+	left: 0;
+	bottom:0;
+}
+.content-title{
+	color: #fff;
+	font-size: 24px;
+	line-height: 36px;
+	margin-top: 5px;
+	padding-left: 15px;
+}
+.star{
+	color: #fff;
+	font-size: 18px;
+	line-height: 40px;
+	padding-left: 15px;
+}
+.star-num{
+	background: url(images/classify/star.png) no-repeat center;
+	width: 22px;
+	height: 20px;
+	background-size: 100% 100%;
+	margin-left: 5px;
+	margin-top: 2px;
+}
+.zoom-out{
+	width: 386px;
+	height: 286px;
+	top: -10px;
+	left: -18px;
+}
+</style>
+</head>
+<body>
+<div class="content">
+	<div class="tab-wrap">
+		<div class="title left">美体瑜伽</div>
+		<div class="tab-list left">
+			<!-- <a href="javascript:;" class="tab-item" data-type="0">养生瑜伽</a>
+			<a href="javascript:;" class="tab-item" data-type="1">维密定制</a> -->
+			<a href="javascript:;" class="tab-item" data-type="2">美体瑜伽</a>
+			<a href="javascript:;" class="tab-item" data-type="3">精品瑜伽</a>
+			<!-- <a href="javascript:;" class="tab-item" data-type="4">体态正形</a> -->
+		</div>
+	</div>
+	<div class="content-list">
+		<script type="text/html" id="content-list">
+			{{each list value i}}
+				{{if i == 1 || i == 4}}
+				<a href="javascript:;" class="content-item content-item{{i}}" style="margin: 0 20px;" data-index="{{i}}" data-lessonid="{{value.id}}">
+				{{else}}
+				<a href="javascript:;" class="content-item content-item{{i}}" data-index="{{i}}" data-lessonid="{{value.id}}">
+				{{/if}}
+					<img class="content-cover" src="{{value.lessonBanner3}}" />
+					<div class="content-info">
+						<div class="content-title">{{value.lessonName}}</div>
+						<div class="star">推荐指数
+							{{each value.star value2 j}}
+								<span class="star-num"></span>
+							{{/each}}
+						</div>
+					</div>
+					<img class="content-mask" src="images/classify/mask.png" />
+				</a>
+			{{/each}}
+		 </script>
+	</div>
+</div>
+<script src="js/jquery-1.8.0.js"></script>
+<script src="js/template-web.js"></script>
+<script src="js/tool.js"></script>
+<script>
+tool.setLog(tool.getCookie("masterId"),"美体瑜伽",window.location.href);
+var IP = tool.getIP();
+// var data = [
+// 	{
+// 		"lessonid": 1,
+// 		"lessionimg": "images/classify/demo.png",
+// 		"lessiontitle": "搏击操精品课程",
+// 		"star": 5
+// 	},
+// 	{
+// 		"lessonid": 2,
+// 		"lessionimg": "images/classify/demo.png",
+// 		"lessiontitle": "搏击操精品课程",
+// 		"star": 5
+// 	},
+// 	{
+// 		"lessonid": 3,
+// 		"lessionimg": "images/classify/demo.png",
+// 		"lessiontitle": "搏击操精品课程",
+// 		"star": 5
+// 	},
+// 	{
+// 		"lessonid": 4,
+// 		"lessionimg": "images/classify/demo.png",
+// 		"lessiontitle": "搏击操精品课程",
+// 		"star": 5
+// 	},
+// 	{
+// 		"lessonid": 5,
+// 		"lessionimg": "images/classify/demo.png",
+// 		"lessiontitle": "搏击操精品课程",
+// 		"star": 5
+// 	},
+// 	{
+// 		"lessonid": 6,
+// 		"lessionimg": "images/classify/demo.png",
+// 		"lessiontitle": "搏击操精品课程",
+// 		"star": 5
+// 	}
+// ]
+
+var focusArea = 1; ////聚焦位置 1为上方tab栏 2为下方节目
+
+//推荐数字转化为5颗星数组
+function toStarArray(list){
+	for(var i=0;i<list.length;i++){
+		var starArray = [];
+		for(var j=0;j<list[i].star;j++){
+			starArray.push(j);
+		};
+		list[i].star = starArray;
+	};
+}
+
+//默认第一个选项栏
+var currentTab = 0;
+function getProgram(type){
+	
+	$.ajax({
+		url: IP+"adminLesson/list?fromTypeId="+type+"&limit=6",
+		type: "get",
+		success: function(res) {
+			console.log(JSON.stringify(res));
+			var data = res.result.records;
+			if(res.code == 0){
+				toStarArray(data);
+				document.getElementsByClassName("content-list")[0].innerHTML = template('content-list', {
+					list: data,
+					type: type
+				});
+				$(".content-item").focus(function(){
+					focusArea = 2;
+					$(this).find(".content-mask").hide();
+					$(this).find(".content-cover").addClass("zoom-out");
+				}).blur(function(){
+					$(this).find(".content-cover").removeClass("zoom-out");
+					$(this).find(".content-mask").show();
+				}); 
+				
+				$(".content-item").click(function(){
+					
+					tool.setCookie("focusClass_excellentcourse","content-item"+$(this).attr("data-index"));
+					tool.setCookie("currentTab_excellentcourse",currentTab);
+					
+					window.location.href = "lessiondetail.html?lessonid="+$(this).attr("data-lessonid")+"&type="+type;
+				})
+			}
+		},
+		error: function(error){
+			console.log(JSON.stringify(error))
+		}
+	})
+	
+}
+//getProgram(currentTab);
+
+$(".tab-item").focus(function(){
+	$(this).siblings().removeClass("active");
+	
+	//判断焦点来源
+	if(focusArea == 2){
+		//从下方上移到tab栏
+		$(this).blur();
+		setTimeout(function(){
+			$(".tab-item").eq(currentTab).addClass("active").focus();
+			focusArea = 1;
+		},20)
+	}else{
+		if(!$(this).hasClass("active")){
+			//如果tab不存在激活状态 表示是新移动到此标签上 大概率是从下方节目往上移动
+			$(this).addClass("active");
+			currentTab = parseInt($(this).attr("data-type") - 2); //保存当前tab位置
+			getProgram(parseInt($(this).attr("data-type"))+6);
+			//切换节目内容
+		}
+		focusArea = 1;
+	}
+});
+if(tool.getCookie("focusClass_excellentcourse")){
+	console.log(tool.getCookie("focusClass_excellentcourse"));
+	
+	$(".tab-item").eq(tool.getCookie("currentTab_excellentcourse")).focus();
+	currentTab = tool.getCookie("currentTab_excellentcourse");
+	setTimeout(function(){
+		$("."+tool.getCookie("focusClass_excellentcourse")).focus();
+	},200)
+}else{
+	$(".tab-item").eq(0).focus();
+}
+
+function down(){
+	if(focusArea == 1){
+		$(".content-item").eq(0).focus();
+	}
+}
+
+//返回事件
+function back(){
+	//重置一部分Cookie
+	tool.setCookie("focusClass_excellentcourse","");
+	window.location.href = "index.html";
+	//window.history.go(-1);
+}
+
+//遥控器事件
+function eventHandler(obj){
+	if(obj.code == "KEY_BACK"){
+		//点击返回
+		back();
+	}else if(obj.code == "KEY_DOWN"){
+		down();
+	}
+}
+</script>
+</body>
+</html>

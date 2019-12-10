@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="page-view-size" content="1280*720" />
+<link rel="stylesheet" href="css/reset.css" />
+<title></title>
+<style>
+.content{
+	width: 1120px;
+	height: 640px;
+	position: relative;
+	background: url(images/makeplan/bg.png) no-repeat center;
+	background-size: 100% 100%;
+	padding: 40px 80px;
+}
+.title{
+	color: #FFCB05;
+	font-size: 24px;
+	margin-bottom: 20px;
+}
+.question{
+	color: #fff;
+	font-size: 36px;
+	margin-bottom: 60px;
+}
+.select-wrap{
+	padding: 0 100px;
+}
+.sex .sex-type{
+	text-align: center;
+	font-size:36px;
+	color: #FEFEFE;
+	margin-top: 20px;
+}
+</style>
+</head>
+<body>
+<div class="content">
+	<div class="title">Hi，我是您的健身小助手接下来将为您量身定制课程计划</div>
+	<div class="question">1.您的性别是？</div>
+	<div class="select-wrap clean">
+		<a href="javascript:;" class="left sex man" style="margin-right: 190px;" data-type="1">
+			<img src="images/makeplan/1-1-focus.png" />
+			<div class="sex-type" style="color: #FFCB05;">男</div>
+		</a>
+		<a href="javascript:;" class="left sex women" data-type="0">
+			<img src="images/makeplan/1-2.png" />
+			<div class="sex-type">女</div>
+		</a>
+	</div>
+</div>
+<script src="js/jquery-1.8.0.js"></script>
+<script src="js/template-web.js"></script>
+<script src="js/tool.js"></script>
+<script>
+
+tool.setLog(tool.getCookie("masterId"),"制定训练计划",window.location.href);
+
+$(".man").focus(function(){
+	$(this).find("img").attr("src","images/makeplan/1-1-focus.png");
+	$(this).find(".sex-type").css("color","#FFCB05");
+}).blur(function(){
+	$(this).find("img").attr("src","images/makeplan/1-1.png");
+	$(this).find(".sex-type").css("color","#FEFEFE");
+});
+
+$(".women").focus(function(){
+	$(this).find("img").attr("src","images/makeplan/1-2-focus.png");
+	$(this).find(".sex-type").css("color","#FFCB05");
+}).blur(function(){
+	$(this).find("img").attr("src","images/makeplan/1-2.png");
+	$(this).find(".sex-type").css("color","#FEFEFE");
+});
+
+$(".man").focus();
+
+$(".sex").click(function(){
+	window.location.href = "makeplan2.html?gender="+$(this).attr("data-type");
+})
+
+//返回事件
+function back(){
+	//重置一部分Cookie
+	window.history.go(-1);
+}
+	
+//遥控器事件
+function eventHandler(obj){
+	if(obj.code == "KEY_BACK"){
+		//点击返回
+		back();
+ 	}
+}
+</script>
+</body>
+</html>

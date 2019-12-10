@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="page-view-size" content="1280*720" />
+<link rel="stylesheet" href="css/reset.css" />
+<title></title>
+<style>
+.content{
+	width: 1280px;
+	height: 720px;
+	position: relative;
+	background: url(images/classify/bg.png) no-repeat center;
+	background-size: 100% 100%;
+}
+.tab-wrap{
+	height: 70px;
+	width: 1120px;
+	margin: 0 auto;
+	padding-top: 40px;
+}
+.title{
+	margin-right: 60px;
+	padding-top: 4px;
+}
+.tab-list{
+	padding-top: 15px;
+}
+.tab-item{
+	width:120px;
+	height:28px;
+	font-size:28px;
+	font-weight:400;
+	color:rgba(204,204,204,1);
+	line-height:24px;
+	margin-right: 30px;
+}
+.tab-list .active{
+	font-weight:bold;
+	color:rgba(255,255,255,1);
+	padding-bottom: 15px;
+	border-bottom: 4px solid #FFCB05;
+}
+.content-list{
+	font-size: 0;
+	padding: 0 80px;
+}
+.content-list .content-item{
+	width: 540px;
+	height: 280px;
+	border-radius:10px;
+	position: relative;
+	margin-top: 20px;
+}
+.content-list .content-item2{
+	width:256px;
+	height:256px;
+	border-radius:10px;
+}
+.content-mask{
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 80;
+}
+.content-cover{
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	border-radius: 12px;
+}
+.content-list .zoom-out{
+	width: 560px;
+	height: 300px;
+	top: -18px;
+	left: -15px;
+	border: 2px solid #FFCB05;
+	border-radius: 14px;
+	z-index: 99;
+}
+.content-list .zoom-out2{
+	width: 280px;
+	height: 280px;
+	top: -12px;
+	left: -12px;
+	border: 2px solid #FFCB05;
+	border-radius: 14px;
+	z-index: 99;
+}
+.leave-mask{
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	left: 0;
+	top: 0;
+	background: rgba(0,0,0,0.4);
+	z-index: 99;
+	display: none;
+}
+.leave-mask .forback{
+	position: absolute;
+	top: 100px;
+	left: 50%;
+	margin-left: -340px;
+}
+.leave-wrap{
+	width: 100%;
+	position: absolute;
+	top: 470px;
+	text-align: center;
+}
+.leave-wrap a{
+	margin-right: 40px;
+	margin-left: 40px;
+}
+.payinfo{
+	position: absolute;
+	right: 15px;
+	top: 20px;
+	width: 180px;
+	text-align: center;
+	font-size: 0;
+}
+.pay{
+	border:2px solid transparent;
+	margin-right: 12px;
+	display: none;
+	border-radius: 6px;
+	width: 76px;
+	height: 76px;
+}
+.pay img{
+	width: 100%;
+	height: 100%;
+}
+.clock{
+	border:2px solid transparent;
+	border-radius: 6px;
+	width: 76px;
+	height: 76px;
+}
+.clock img{
+	width: 100%;
+	height: 100%;
+}
+</style>
+</head>
+<body>
+<div class="content">
+	<div class="payinfo">
+		<a href="javascript:;" class="pay">
+			<img src="images/index/pay.png" />
+		</a>
+		<a href="javascript:;" class="clock">
+			<img src="images/index/lock.png" />
+		</a>
+	</div>
+	<div class="tab-wrap">
+		<div class="title left">
+			<img src="images/index/logo.png" />
+		</div>
+		<div class="tab-list left">
+			<a href="javascript:;" id="tab-item0" class="tab-item tab-item0" data-type="0">私人订制</a>
+			<a href="javascript:;" id="tab-item1" class="tab-item tab-item1" data-type="1">精品课程</a>
+			<a href="javascript:;" id="tab-item2" class="tab-item tab-item2" data-type="2">美体瑜伽</a>
+			<a href="javascript:;" id="tab-item3" class="tab-item tab-item3" data-type="3">个人中心</a>
+			<a href="javascript:;" id="tab-item4" class="tab-item tab-item4" data-type="4">业务说明</a>
+		</div>
+	</div>
+	<div class="content-list clean">
+		<script type="text/html" id="content-list">
+			<div class="left" style="font-size: 0;">
+				<a href="javascript:;" id="contentfocus0" class="content-item contentfocus0" data-type="0" data-index="0" data-lessonid="{{list[0].lessonId}}" style="margin-right: 20px;">
+					<img class="content-cover" src="{{list[0].images}}" />
+					<img class="content-mask" src="images/classify/mask.png" />
+				</a>
+				<a href="javascript:;" id="contentfocus1" class="content-item contentfocus1" data-type="0" data-index="1" data-lessonid="{{list[1].lessonId}}">
+					<img class="content-cover" src="{{list[1].images}}" />
+					<img class="content-mask" src="images/classify/mask.png" />
+				</a>
+			</div>
+			<div class="left" style="font-size: 0;">
+				{{each list value i}}
+					{{if i > 1}}
+					<a href="javascript:;" id="contentfocus{{i}}" class="content-item content-item2 contentfocus{{i}}" style="margin-right: 20px;" data-index="{{i}}" data-lessonid="{{value.lessonId}}">
+						<img class="content-cover" src="{{value.images}}" />
+						<img class="content-mask" src="images/classify/mask.png" />
+					</a>
+					{{/if}}
+				{{/each}}
+			</div>
+		 </script>
+	</div>
+</div>
+<div class="leave-mask">
+	<img class="forback" src="images/index/forback.png" />
+	<div class="leave-wrap">
+		<a href="javascript:;" id="continue">
+			<img src="images/index/noleavefocus.png" />
+		</a>
+		<a href="javascript:;" id="leave">
+			<img src="images/index/leave.png" />
+		</a>
+	</div>
+</div>
+<div class="childlock" style="position: absolute;width: 1280px;height: 720px;top: 0;left: 0;z-index: 99;display: none;">
+	<img class="lockimg" src="images/index/locked.png" style="position: absolute;width: 1280px;height: 720px;top: 0;left: 0;">
+	<a href="javascript:;" class="finshOk" style="position: absolute;top: 475px;right: 300px;">
+		<img src="images/play/ok.png" />
+	</a>
+</div>
+<div style="display: none;">
+	<form id="formAct" action="http://10.253.255.42:14521/childLock/jumpLockStat" method="post">
+		<input name="result" value="" class="result"/>
+		<input name="userId" value="" class="userId"/>
+		<input name="productId" value="" class="productId"/>
+		<input name="backUrl" value="" class="backUrl"/>
+	</form>
+</div>
+<script src="js/jquery-1.8.0.js"></script>
+<script src="js/template-web.js"></script>
+<script src="js/tool.js"></script>
+<!-- <script src="js/sdk.config.js"></script>
+<script src="js/sdk.1.8.4.min.js?v=1.0"></script> -->
+<script src="js/sdk.config1.8.3.js"></script>
+<script src="js/sdk.1.8.3.min.js"></script>
+<script>
+var focusobj;
+var leaveShow = false;
+var currentBtnfocus;
+var ossUserId;
+var IP = tool.getIP();
+//存放userId
+try{
+	var masterId = Authentication.CTCGetConfig("UserID");
+	tool.setCookie("masterId",masterId);
+	if(tool.getCookie("ossUserId") && tool.getCookie("ossUserId") != "" && tool.getCookie("ossUserId") != null && tool.getCookie("ossUserId") != "null"){
+		ossUserId = tool.getCookie("ossUserId");
+	}else{
+		tool.setCookie("ossUserId",masterId);
+		ossUserId = masterId;
+	}
+	var sTBID = Authentication.CTCGetConfig("STBID") || "";
+	var mac = Authentication.CTCGetConfig("mac") || "";
+	var ip = Authentication.CTCGetConfig("IPAddress") || "";
+	var userToken = Authentication.CTCGetConfig("UserToken") || "";
+	
+	//tool.alertLog(tool.getCookie("ossUserId"));
+	
+	//用户注册
+	$.ajax({
+		url: IP+"adminUser/add",
+		type: "post",
+		contentType:"application/json; charset=utf-8",
+		data: JSON.stringify({
+			masterId: masterId,
+			ossUserId: ossUserId,
+			isMain: 1,
+			source: window.location.href,
+			stbId: sTBID,
+			mac: mac,
+			ip: ip,
+			userToken: userToken
+		}),
+		success: function(res){
+			
+		},
+		error: function(error){
+			
+		}
+	});
+	
+	tool.setLog(tool.getCookie("masterId"),"进入首页",window.location.href);
+	
+}catch(e){
+	//TODO handle the exception
+	var masterId = 20180828;
+	var ossUserId = 20180828;
+	tool.setCookie("masterId",masterId);
+	tool.setCookie("ossUserId",ossUserId);
+}
+$.ajax({
+	url: IP+"adminHomeTemplate/home",
+	type: "get",
+	success: function(res){
+		console.log(JSON.stringify(res));
+		var data = res.result;
+
+		//默认第一个选项栏
+		var currentTab = 0;
+		var focusArea = 1; ////聚焦位置 1为上方tab栏 2为下方节目
+
+		function getProgram(){
+			document.getElementsByClassName("content-list")[0].innerHTML = template('content-list', {
+				list: data,
+			});
+			$(".content-item").focus(function(){
+				focusArea = 2;
+				$(this).find(".content-mask").hide();
+				if($(this).attr("data-type") == "0"){
+					$(this).find(".content-cover").addClass("zoom-out");
+				}else{
+					$(this).find(".content-cover").addClass("zoom-out2");
+				};
+				focusobj = $(this).attr("id");
+			}).blur(function(){
+				if($(this).attr("data-type") == "0"){
+					$(this).find(".content-cover").removeClass("zoom-out"); 
+				}else{
+					$(this).find(".content-cover").removeClass("zoom-out2");
+				}
+				$(this).find(".content-mask").show();
+			})
+		}
+		getProgram();
+
+		$(".tab-item").focus(function(){
+			$(this).siblings().removeClass("active");
+			focusobj = $(this).attr("id");
+			//判断焦点来源
+			if(focusArea == 2){
+				//从下方上移到tab栏
+				$(this).blur();
+				setTimeout(function(){
+					$(".tab-item").eq(currentTab).addClass("active").focus();
+					focusArea = 1;
+				},20)
+			}else{
+				if(!$(this).hasClass("active")){
+					//如果tab不存在激活状态 表示是新移动到此标签上 大概率是从下方节目往上移动
+					$(this).addClass("active");
+					currentTab = $(this).attr("data-type"); //保存当前tab位置
+					//getProgram($(this).attr("data-type"));
+					//切换节目内容
+				}
+				focusArea = 1;
+			}
+		});
+
+		$(".tab-item").click(function(){
+			if(currentTab == 0){
+				//私人定制
+				//判断用户是否有定制计划 有跳转到训练计划页 无跳转到定制信息录入页
+				tool.setCookie("focusClass_index","tab-item0");
+				$.ajax({
+					url: IP+"tvFitUserPlan/myPlan?ossUserId="+ossUserId,
+					type: "get",
+					success: function(res){
+						console.log(JSON.stringify(res));
+						if(res.code == 0){
+							if(res.message == "用户未生成计划"){
+								window.location.href = "makeplan1.html";
+							}else if(res.result){
+								window.location.href = "sirendingzhi.html";
+							}
+						}
+					},
+					error:function(error){
+						console.log(JSON.stringify(res));
+					}
+				})
+				
+			}else if(currentTab == 1){
+				//精品课程
+				tool.setCookie("focusClass_index","tab-item1");
+				window.location.href = "excellentcourse.html";
+			}else if(currentTab == 2){
+				//美体瑜伽
+				tool.setCookie("focusClass_index","tab-item2");
+				window.location.href = "yoga.html";
+			}else if(currentTab == 3){
+				//个人中心
+				tool.setCookie("focusClass_index","tab-item3");
+				window.location.href = "personal.html";
+			}else if(currentTab == 4){
+				//业务说明
+				tool.setCookie("focusClass_index","tab-item4");
+				window.location.href = "order.html";
+			}
+		});
+
+		$(".content-item").click(function(){
+			tool.setCookie("focusClass_index","contentfocus"+$(this).attr("data-index"));
+			window.location.href = "lessiondetail.html?lessonid="+$(this).attr("data-lessonid");
+		});
+
+		if(tool.getCookie("focusClass_index")){
+			$("."+tool.getCookie("focusClass_index")).focus();
+			focusobj = $("."+tool.getCookie("focusClass_index")).attr("id");
+		}else{
+			$(".tab-item").eq(0).focus();
+			focusobj = "tab-item0";
+		};
+	},
+	error: function(error){
+		console.log(JSON.stringify(error));
+	}
+})
+
+$("#continue").focus(function(){
+	$(this).find("img").attr("src","images/index/noleavefocus.png");
+	currentBtnfocus = "continue";
+}).blur(function(){
+	$(this).find("img").attr("src","images/index/noleave.png");
+});
+$("#leave").focus(function(){
+	$(this).find("img").attr("src","images/index/leavefocus.png");
+	currentBtnfocus = "leave";
+}).blur(function(){
+	$(this).find("img").attr("src","images/index/leave.png");
+});
+
+//返回事件
+function back(){
+	
+	//重置一部分Cookie
+	tool.setCookie("focusClass_index","");
+	//window.location.href = Authentication.CTCGetConfig("EPGDomain");
+	window.location.href = "http://10.253.255.67:7002/applyLobby/getIndex/369/tss?menuId=221676950";
+	//返回epg首页
+}
+	
+//遥控器事件
+function eventHandler(obj){
+	if(obj.code == "KEY_BACK"){
+		//挽留
+		if($(".childlock").css("display") == "block"){
+			$(".childlock").hide(function(){
+				$(".clock").focus();
+			});
+		}else{
+			$(".leave-mask").show(function(){
+				leaveShow = true;
+				$(".tab-item,.content-item").removeAttr("href");
+				$("#continue").focus();
+			});
+		}
+ 	}
+}
+
+$("#leave").click(function(){
+	//点击返回
+	back();
+});
+$("#continue").click(function(){
+	//挽留成功
+	$("a").attr("href","javascript:;");
+	leaveShow = false;
+	$(".leave-mask").hide();
+	setTimeout(function(){
+		
+		$("#"+focusobj).focus();
+	},20)
+});
+
+//订购和童锁逻辑
+$(".pay").focus(function(){
+	$(this).css("border-color","#FFCB05");
+}).blur(function(){
+	$(this).css("border-color","transparent");
+});
+$(".clock").focus(function(){
+	$(this).css("border-color","#FFCB05");
+}).blur(function(){
+	$(this).css("border-color","transparent");
+});
+
+//判断订购状态
+/* 订购产品 */
+function orderProduct(productId,customerId,contentId,contentName,price,redirectUrl,failUrl,productIdThird) {
+	var boxId = "";
+	var productId = productId;
+	var customerId = customerId;
+	//var customerId = "test0322";
+	//var customerId = Authentication.CTCGetConfig("UserID");
+	var contentId = contentId;
+	var contentName = contentName;
+	var price = price;
+	var redirectUrl = redirectUrl;
+	var failUrl = failUrl;
+	var broadbandid = customerId;
+	var param2 = "";
+	var param3 = "";
+	var param4 = productIdThird;
+	var param5 = "";
+	var userCode = "";
+	var productIdThird = productIdThird;
+	var platform = "";
+	var payVersion = "8004";
+	var payChannelId = "30239";
+	var payAppId = "117951805";
+	var payAppName = "河南沃家游戏";
+	var payUA = "OTHERTVSTORE_HENANTV";
+	//console.log(productId, customerId, contentId, contentName, price, redirectUrl, failUrl);
+	sdk.doOrderProduct(boxId, productId, customerId, contentId, contentName, price, redirectUrl, failUrl, broadbandid, param2, param3, param4, param5, userCode, productIdThird, platform, payVersion, payChannelId, payAppId, payAppName, payUA, function (resultCode, resultMsg) {
+			console.log("resultCode:" + resultCode + ";resultMsg:" + resultMsg);
+			//tool.alertLog("resultCode:" + resultCode + ";resultMsg:" + resultMsg)
+		}
+	);
+}
+/* 鉴权	*/
+function getProducts() {
+	var contentId = "2476005600";
+	//var contentId = "productIDa1000000000000000000009";
+	//var customerId = "test032403";
+	var customerId = masterId;
+	//tool.alertLog(customerId);
+	var productIds = new Array();
+	productIds[0] = "1110000234";
+	//productIds[0] = "1110000000";
+	//productIds[1] = "1000000059";
+	var userCode = "";
+	var productIdThirds = null;
+	sdk.doGetProducts(contentId, customerId, productIds, userCode, productIdThirds, function (resultCode, resultMsg) {
+		//console.log(resultCode,JSON.parse(resultMsg).list);
+		//获取订购产品相关参数
+		var list = JSON.parse(resultMsg).list ? JSON.parse(resultMsg).list[0] : [];
+		if(resultCode == 1){
+			
+			if(list.status == 0 || list.status == 2){
+				//未订购
+				$(".pay").show();
+			}else{
+				//已订购
+				$(".pay").hide();
+			}
+		}
+	});
+};
+getProducts();
+function getProducts2() {
+	var contentId = "2476005600";
+	//var contentId = "productIDa1000000000000000000009";
+	//var customerId = "test032403";
+	var customerId = masterId;
+	//tool.alertLog(customerId);
+	var productIds = new Array();
+	productIds[0] = "1110000234";
+	//productIds[0] = "1110000000";
+	//productIds[1] = "1000000059";
+	var userCode = "";
+	var productIdThirds = null;
+	sdk.doGetProducts(contentId, customerId, productIds, userCode, productIdThirds, function (resultCode, resultMsg) {
+		//console.log(resultCode,JSON.parse(resultMsg).list);
+		//获取订购产品相关参数
+		var list = JSON.parse(resultMsg).list ? JSON.parse(resultMsg).list[0] : [];
+		//tool.alertLog("resultCode:" + resultCode + ";resultMsg:" + resultMsg);
+		//orderProduct(list.productId,customerId,list.contentId,list.productName,list.productPrice,window.location.href,"http://10.253.255.149:5124/tv/index.html");
+		if(resultCode == 1){
+			
+			if(list.status == 0 || list.status == 2){
+				//未订购
+				orderProduct(list.productId,customerId,list.contentId,list.productName,list.productPrice,"http://10.253.255.149:5124/tv/paysuccess.html?backurl=index","http://10.253.255.149:5124/tv/payfail.html?backurl=index",list.productIdThird);
+			}
+		}
+	});
+};
+
+$(".pay").click(function(){
+	getProducts2();
+	// $.ajax({
+	// 	type:"get",
+	// 	url:"http://10.253.255.42:14521/childLock/validate/"+masterId+"/1110000000",
+	// 	data:{
+	// 		userId: masterId,
+	// 		productId: "1110000000"
+	// 	},
+	// 	success:function(res){
+	// 		if(res == true){
+	// 			//$(".lockimg").attr("src","images/lessiondetail/childlock.png");
+	// 			$(".childlock").show(function(){
+	// 				$(".finshOk").focus();
+	// 			})
+	// 		}else{
+	// 			getProducts2();
+	// 		}
+	// 	}
+	// }); 
+})
+//判断童锁状态
+$.ajax({
+	type:"get",
+	url:"http://10.253.255.42:14521/childLock/validate/"+ masterId +"/1110000234",
+	data:{
+		userId: masterId,
+		productId: "1110000234"
+	},
+	success:function(res){
+		if(res == true){
+			var childLock = 1;
+			$('.clock img').attr('src','images/index/lock.png');
+		}else{
+			var childLock = 0;
+			$('.clock img').attr('src','images/index/nolock.png');
+		};
+		
+		$('.userId').val(masterId);
+		$('.productId').val("1110000234");
+		$('.backUrl').val(encodeURI("http://10.253.255.149:5124/tv/index.html?id=2"));
+		$('.result').val(res);
+		
+		$(".clock").click(function(){
+			$('#formAct').submit();
+		})
+	},
+	error: function(error){
+		
+	}
+});
+$(".finshOk").click(function(){
+	$(".childlock").hide(function(){
+		$(".clock").focus();
+	});
+});
+</script>
+</body>
+</html>

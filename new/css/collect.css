@@ -1,0 +1,125 @@
+html,
+body {
+	width: 1280px;
+	height: 720px;
+}
+
+body {
+	background-color: black;
+	position: relative;
+}
+.title{
+	font-size: 48px;
+	color: #FFFFFF;
+	margin-left: 81px;
+	margin-top: 41px;
+	float: left;
+}
+.lesNum{
+	font-size: 24px;
+	margin-left: 20px;
+	margin-top: 56px;
+	color: #FFFFFF;
+	float: left;
+}
+.tipPic{
+	width: 313px;
+	height: 138px;
+	position: absolute;
+	left: 483px;
+	top: 160px;
+}
+.tip{
+	font-size: 24px;
+	color: #999999;
+	position: absolute;
+	left: 493px;
+	top: 327px;
+}
+.guessLike{
+	width: 100%;
+	height: 320px;
+	background: url(new/img/personal/collectBg.png) no-repeat;
+	background-size: 100% 320px;
+	position: absolute;
+	bottom: 0;
+}
+.guessLike .gulItem:nth-of-type(1){
+	margin-left: 76px;
+}
+.gulItem{
+	width: 208px;
+	height: 210px;
+	margin-top: 50px;
+	float: left;
+	margin-right: 20px;
+	position: relative;
+	opacity: 0.4;
+}
+.guessLike .gulItem{
+	margin-top: 90px;
+}
+.gulItem .pic{
+	width: 208px;
+	height: 162px;
+}
+.gulItem .guessName{
+	font-size: 18px;
+	color: #CCCCCC;
+	text-align: center;
+	margin-top: 16px;
+}
+.guessLike .guessFocus{
+	width: 240px;
+	height: 183px;
+	margin-top: 76px;
+	opacity: 1;
+}
+.guessLike .guessFocus .pic{
+	width: 228px;
+	height: 172px;
+	margin-top: 1px;
+	margin-left: 1px;
+}
+.guessBorder{
+	width: 240px;
+	height: 183px;
+	position: absolute;
+	top: -5px;
+	left: -5px;
+}
+.hide{
+	display: none;
+}
+.collect{
+	width: 100%;
+	clear: both;
+}
+.collect .gulItem:nth-of-type(5n-4){
+	margin-left: 60px;
+}
+.gulItem .itemA{
+	height: 166px;
+	border: 5px solid transparent;
+	border-radius: 10px;
+}
+.collect .gulItem{
+	margin-right: 20px;
+	position: relative;
+	border: 5px solid transparent;
+}
+.btn{
+	width: 160px;
+	height: 80px;
+	border-radius: 10px;
+	position: absolute;
+	top: 40px;
+	right: 80px;
+}
+.btn img{
+	width: 100%;
+	height: 100%;
+}
+.btnFocus{
+	border: 2px solid #FFCB05!important;
+}

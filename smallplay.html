@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="page-view-size" content="1280*720" />
+<link rel="stylesheet" href="css/reset.css" />
+<title></title>
+<style>
+.content{
+	width: 1280px;
+	height: 720px;
+	position: relative;
+	background: none;
+	background: transparent;
+}
+
+</style>
+</head>
+<body>
+<div class="content"></div>
+<script src="js/jquery-1.8.0.js"></script>
+<script src="js/tool.js"></script>
+<script>
+
+//var playUrl = "rtsp://220.191.136.24/88888888/16/20190326/273329920/273329920.ts"; //浙江
+var playUrl = tool.getParam("playUrl") //河南
+// var lessionid = "137";
+// var video_id = "875";
+//var videoDisplayMode = "0";
+//var backstate = true; //弹窗返回 true表示弹窗未显示 false表示弹窗已显示,遥控器其它按钮事件失效
+//var forwardTime = 0; //快进时间
+//var backTime = 0;  //快退时间
+//var Dtime = 0;  //差值时间
+
+var mp = new MediaPlayer(); //初始化播放器对象
+//var speed = 1; //初始化播放器播放速度
+
+function initMediaPlay(){
+	
+	var mediaStr = '[{mediaUrl:"'+ playUrl +'",';
+	mediaStr += 'mediaCode: "jsoncode1",';
+	mediaStr += 'mediaType:2,';
+	mediaStr += 'audioType:1,';
+	mediaStr += 'videoType:3,';
+	mediaStr += 'streamType:1,';
+	mediaStr += 'drmType:1,';
+	mediaStr += 'fingerPrint:0,';
+	mediaStr += 'copyProtection:1,';
+	mediaStr += 'allowTrickmode:0,';
+	mediaStr += 'startTime:0,';
+	mediaStr += 'endTime:'+mp.getMediaDuration()+',';
+	//    mediaStr += '0,';
+	mediaStr += 'entryID:"jsonentry1"}]';
+	
+	var instanceId = mp.getNativePlayerInstanceID(); //读取本地的媒体播放实例的标识
+	var playListFlag = 0; //Media Player 的播放模式。 0：单媒体的播放模式 (默认值)，1: 播放列表的播放模式
+	var videoDisplayMode = 0; //MediaPlayer 对象对应的视频窗口的显示模式. 1: 全屏显示2: 按宽度显示，3: 按高度显示
+	
+	var height = 320;
+	var width = 540;
+	var left = 80;
+	var top = 40;
+	
+	var muteFlag = 0; //0: 设置为有声 (默认值) 1: 设置为静音
+	var subtitleFlag = 0; //字幕显示
+	var videoAlpha = 0; //视频的透明度
+	
+	var cycleFlag = 0;  //循环播放 0：循环播放   1：单次播放
+	var randomFlag = 0;     //随机播放
+	var autoDelFlag = 0;
+	var useNativeUIFlag = 0;
+	
+	//初始话mediaplayer对象
+	mp.initMediaPlayer(instanceId,playListFlag,videoDisplayMode,height,width,left,top,muteFlag,useNativeUIFlag,subtitleFlag,videoAlpha,cycleFlag,randomFlag,autoDelFlag);
+	mp.setSingleMedia(mediaStr); //设置媒体播放器播放媒体内容
+	mp.setAllowTrickmodeFlag(0); //设置是否允许trick操作。 0:允许 1：不允许
+	
+	mp.setNativeUIFlag(0); //播放器是否显示缺省的Native UI，  0:允许 1：不允许
+	mp.setAudioTrackUIFlag(1);//设置音轨的本地UI显示标志 0:不允许 1：允许
+	
+	mp.setMuteUIFlag(1); //设置静音的本地UI显示标志 0:不允许 1：允许
+	mp.setAudioVolumeUIFlag(1);//设置音量调节本地UI的显示标志 0:不允许 1：允许
+	mp.refreshVideoDisplay();
+}
+
+function start(){//进入页面后直接播放
+	initMediaPlay();
+	mp.playByTime(1,0,1);
+}
+
+// var resetTimer=null;
+// //数值初始化
+// function resetData(){
+// 	clearTimeout(resetTimer);
+// 	resetTimer = setTimeout(function(){
+// 	    mp.playByTime(1,DTime,1);
+		
+// 	    DTime = 0;
+// 	    forwardTime = 0;
+// 	    backTime = 0;
+// 	},500);
+// };
+
+// //视频数据初始化获取
+// function goUtility(){
+// 	eval("eventJson = " + Utility.getEvent());
+// 	switch(eventJson.type) {
+// 	    case "EVENT_MEDIA_BEGINING":
+// 	        return false;
+// 	    case "EVENT_MEDIA_ERROR":
+// 			//视频出现错误
+// 			console.log(eventJson.error_code,eventJson.error_message);
+// 	        return false;
+// 	    case "EVENT_MEDIA_END":
+// 			//播放结束
+// 			if(videoDisplayMode != "1"){
+// 				//小视频播放
+// 				//stop();
+// 			}
+// 	        return false;
+// 	    default :
+// 	        break;
+// 	}
+// 	return true;
+// }
+
+// //快退事件
+// function retreat(){
+// 	var alltime = mp.getMediaDuration();
+// 	backTime += 10;
+// 	DTime = mp.getCurrentPlayTime() - backTime; // 减少10秒后的播放位置
+// 	if(DTime <= 0){
+// 		DTime = 0;
+// 	}
+// 	resetData();
+// };
+// //快进事件
+// function forward(){
+// 	var alltime = mp.getMediaDuration();
+// 	forwardTime += 10;
+// 	DTime = mp.getCurrentPlayTime() + forwardTime; // 增加10秒后的播放位置
+// 	if(DTime >= alltime){
+// 		DTime = alltime;
+// 	}
+// 	resetData();
+// };
+// //音量加事件
+// function vioceup(){
+// 	var vol = mp.getVolume();
+// 	vol = (vol <= 100 ? vol+1 : 100);
+// 	mp.setVolume(vol);
+// }
+// //音量减事件
+// function viocedown(){
+// 	var vol = mp.getVolume();
+// 	vol = (vol > 0 ? vol-1 : 0);
+// 	mp.setVolume(vol);
+// }
+// //静音
+// function volMute() {
+// 	vol = 0 ;
+// 	mp.setVolume(vol);
+// 	//显示静音图标
+// }
+// //暂定事件
+// function play(){
+// 	//暂停为播放 播放为暂停 按确定键触发
+// 	if(speed == 1){
+// 		//暂停
+// 	    mp.pause();
+// 	    speed = 0;
+	
+// 	}else{
+// 		//播放
+// 	    mp.resume();
+// 	    speed = 1;
+// 	}
+// };
+
+// //停止播放事件
+// function stop(){
+// 	mp.stop();
+// }
+
+// //返回事件
+// //这里区分是否有弹窗出现 以及视频是否播放完毕
+// function back(){
+// 	mp.pause();
+// 	speed = 0;
+// 	mp.releaseMediaPlayer(mp.getNativePlayerInstanceID());
+// }
+
+//遥控器事件
+function eventHandler(obj){
+	if(obj.code == "KEY_RIGHT"){
+		//快进
+		//forward();
+	}else if(obj.code == "KEY_LEFT"){
+		//快退
+		//retreat();
+	}else if(obj.code == "KEY_VOLUMEUP"){
+		//音量+
+		//vioceup();
+	}else if(obj.code == "KEY_VOLUMEDOWN"){
+		//音量-
+		//viocedown();
+	}else if(obj.code == "KEY_MUTE"){
+		//静音
+		//volMute();
+	}else if(obj.code == "KEY_SELECT"){
+		//暂定或播放
+		//play();
+	}else if(obj.code == "KEY_BACK"){
+		//点击返回
+		back();
+	}else if(obj.code == "KEY_UTILITY"){
+		//播放事件
+		//goUtility();
+	}
+}
+
+window.onload =function() {
+	start();
+}
+</script>
+</body>
+</html>

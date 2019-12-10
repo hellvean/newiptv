@@ -1,0 +1,35 @@
+*{
+	font-size: 14px;
+	font-family:"Microsoft YaHei","PingFang SC";
+	margin: 0;
+	padding: 0;	
+}
+a{
+	outline: none;
+}
+html,body{
+	width: 100%;
+	position: relative;
+	background: url(new/img/personal/bg.png) no-repeat;
+	background-size: 100% 100%;
+}
+body,div,input,span,a,li,ul,form,button,i,b,select{
+	box-sizing:border-box;
+	-webkit-box-sizing:border-box;
+	-moz-box-sizing:border-box;
+	-ms-box-sizing:border-box;
+}
+fieldset,img,iframe{border:none;}
+ul,li,ol>li>ol, ol>li>ul, ul>li>ol, ul>li>ul{list-style:none;margin: 0;}
+input, textarea, select,button{*font-size:100%;outline: none;border:none;}
+a{text-decoration: none;}
+a,span,b,i{display: inline-block;}
+i{font-style: normal;}
+b{font-weight: normal;}
+
+/*Global*/
+.left{float:left;}
+.right{float:right;}
+.clean:before, .clean:after{content:"";display:table;}
+.clean:after{clear:both;}
+.clean{zoom:1;}

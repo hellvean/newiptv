@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="page-view-size" content="1280*720" />
+		<meta http-equiv="Page-Enter" content="blendTrans(Duration=1.0)" />
+		<link rel="stylesheet" type="text/css" href="../css/reset.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/enterInfo.css"/>
+	</head>
+	<body>
+		<img src="../img/enterInfo/logo.png"  class="logo"/>
+		<div class="word">健身从了解自己开始，也让我们更懂您</div>
+		<div class="sexBox">
+			<div class="label">性别</div>
+			<a href="javascript:void(0)" class="boy">
+				<img src="../img/enterInfo/checkB.png" />
+				<div>男</div>
+			</a>
+			<a href="javascript:void(0)" class="girl">
+				<img src="../img/enterInfo/checkB.png" />
+				<div>女</div>
+			</a>
+		</div>
+		<div class="ageBox box">
+			<div class="label">年龄(岁)</div>
+			<input type="text" class="age"/>
+		</div>
+		<div class="heightBox box">
+			<div class="label">身高(CM)</div>
+			<input type="text" class="height"/>
+		</div>
+		<div class="weightBox box">
+			<div class="label">体重(KG)</div>
+			<input type="text" class="weight"/>
+		</div>
+		<a href="javascript:void(0)" class="next">
+			<img src="../img/enterInfo/nextB.png" />
+		</a>
+		<div class="tip"></div>
+		<div class="tip1"></div>
+	</body>
+	<script src="../js/jquery-1.8.0.js"></script>
+	<script src="../js/Defsjs.js"></script>
+	<script>
+		var sex = 1;
+		$('input').focus(function(){
+			$(this).parent().addClass('putFocus')
+		}).blur(function(){
+			$(this).parent().removeClass('putFocus')
+		})
+		
+		$('.boy').focus(function(){
+			sex=1;
+			$(this).find('img').attr('src','../img/enterInfo/checkF.png')
+			$(this).find('div').css('color','#FFCB05')
+		}).blur(function(){
+			$(this).find('img').attr('src','../img/enterInfo/checkB.png')
+			$(this).find('div').css('color','#FFFFFF')
+		})
+		
+		$('.girl').focus(function(){
+			sex = 0;
+			$(this).find('img').attr('src','../img/enterInfo/checkF.png')
+			$(this).find('div').css('color','#FFCB05')
+		}).blur(function(){
+			$(this).find('img').attr('src','../img/enterInfo/checkB.png')
+			$(this).find('div').css('color','#FFFFFF')
+		})
+		
+		$('.next').focus(function(){
+			$(this).find('img').attr('src','../img/enterInfo/nextF.png')
+		}).blur(function(){
+			$(this).find('img').attr('src','../img/enterInfo/nextB.png')
+		})
+		
+		$('.next').click(function(){
+	        window.history.back(-1)
+		})
+		$('.boy').focus()
+		function eventHandler(obj){
+	        if(obj.code == "KEY_BACK"){//返回
+	            window.history.back(-1)
+	        }else  if(obj.code == "KEY_DOWN"){
+	        	if(sex==0){
+	        		$('.girl').find('img').attr('src','../img/enterInfo/checkF.png')
+					$('.girl').find('div').css('color','#FFCB05')
+	        	}else if(sex==1){
+	        		$('.boy').find('img').attr('src','../img/enterInfo/checkF.png')
+					$('.boy').find('div').css('color','#FFCB05')
+	        	}
+	        	n++
+	        }else  if(obj.code == "KEY_UP"){
+        		$('.tip').html('up')
+	        	if($('.age').is(':focus')){
+	        		if(sex ==0){
+	        			$('.girl').focus()
+		        	}else if(sex == 1){
+		        		$('.boy').focus()
+		        	}
+	        	}
+	        }
+	    }
+	</script>
+</html>

@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="page-view-size" content="1280*720" />
+<link rel="stylesheet" href="css/reset.css" />
+<title>Title</title>
+<style>
+.content{
+	width: 1280px;
+	height: 720px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 9;
+}
+.finshed{
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	background: url(images/play/02.png) no-repeat center;
+	background-size: 100% 100%;
+	display: none;
+}
+.finshed a{
+	position: absolute;
+	top: 475px;
+	right: 300px;
+}
+.finshed > div,.no-finshed > div{
+	width: 210px;
+	text-align: center;
+	font-size:48px;
+	font-weight:bold;
+	color:rgba(255,203,5,1);
+	position: absolute;
+	top: 340px;
+}
+.time{
+	right:390px;
+}
+.xiaohao{
+	right:180px;
+}
+.no-finshed{
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	background: url(images/play/01.png) no-repeat center;
+	background-size: 100% 100%;
+	display: none;
+}
+.no-finshed a{
+	position: absolute;
+	top: 475px;
+}
+.continue{
+	right:400px;
+}
+.giveup{
+	right:200px;
+}
+.process{
+	width: 1000px;
+	height: 12px;
+	background: url(images/play/process.png) no-repeat center;
+	background-size: 100% 100%;
+	position: absolute;
+	bottom: 50px;
+	left: 140px;
+}
+.process-bar{
+	height: 100%;
+	border-radius: 2px;
+	background: #FDA60F;
+	position: absolute;
+	left: 0;
+}
+.process-bar img{
+	position: absolute;
+	right: -18px;
+	top: -23px;
+}
+.controls{
+	width: 100%;
+	height: 180px;
+	position: absolute;
+	bottom: 0;
+	background: url(images/play/mask.png) no-repeat center;
+	display: none;
+}
+.retreat{
+	position: absolute;
+	left: 140px;
+	top: 30px;
+	display: none;
+}
+.forward{
+	position: absolute;
+	right: 140px;
+	top: 30px;
+	display: none;
+}
+.play{
+	position: absolute;
+	left: 50%;
+	margin-left: -40px;
+	display: none;
+}
+.currenttime{
+	position: absolute;
+	top: -50px;
+	left: 0;
+	font-size: 24px;
+	font-weight: 600;
+	color: #fff;
+}
+.alltime{
+	position: absolute;
+	top: -50px;
+	right: 0;
+	font-size: 24px;
+	font-weight: 600;
+	color: #fff;
+}
+.vioce{
+	width: 230px;
+	height: 34px;
+	position: absolute;
+	top: 80px;
+	left: 50%;
+	margin-left: -115px;
+	display: none;
+}
+.vioce-process{
+	width: 190px;
+	height: 10px;
+	position: absolute;
+	background: #ccc;
+	border-radius: 5px;
+	top: 12px;
+	left: 30px;
+}
+.vioce-process-bar{
+	height: 10px;
+	width: 50%;
+	background: #FDA60F;
+	position: absolute;
+	border-radius: 5px;
+}
+.mute{
+	position: absolute;
+	top: 80px;
+	left: 48%;
+	display: none;
+}
+</style>
+</head>
+<body bgcolor ="transparent" >
+<div class="content">
+	<div class="vioce">
+		<img src="images/play/vioce.png" />
+		<div class="vioce-process">
+			<div class="vioce-process-bar"></div>
+		</div>
+	</div>
+	<img src="images/play/mute.png" class="mute" />
+	<div class="controls">
+		<div class="retreat">
+			<img src="images/play/retreat.png" />
+		</div>
+		<div class="forward">
+			<img src="images/play/forward.png" />
+		</div>
+		<div class="play">
+			<img src="images/play/pause.png" />
+		</div>
+		<div class="process">
+			<div class="currenttime">00:00:00</div>
+			<div class="alltime">00:00:00</div>
+			<div class="process-bar">
+				<img src="images/play/process-icon.png" />
+			</div>
+		</div>
+	</div>
+	
+	<div class="finshed">
+		<div class="time">0</div>
+		<div class="xiaohao">0</div>
+		<a href="javascript:;" class="finshOk">
+			<img src="images/play/ok.png" />
+		</a>
+	</div>
+	<div class="no-finshed">
+		<div class="time">0</div>
+		<div class="xiaohao">0</div>
+		<a href="javascript:;" class="continue">
+			<img src="images/play/continue.png" />
+		</a>
+		<a href="javascript:;" class="giveup">
+			<img src="images/play/giveup.png" />
+		</a>
+	</div>
+</div>
+<div style="position: absolute;width: 1280px;height: 720px;top: 0;left: 0;">
+    <iframe style="z-index:1;" name="videoPlay" id="videoPlay" width="100%" height="100%" src="" frameborder="no" scrolling="no"></iframe>
+</div>
+<!-- <div id="alert" style="position: absolute;top: 0;left: 0;z-index: 99;width: 100%;padding: 10px 0;background: #fff;color: #333;"></div> -->
+</body>
+<script src="js/jquery-1.8.0.js"></script>
+<!-- <script src="js/videoPlay.js?v=1.2"></script> -->
+<!-- <script src="js/smallvideoPlay.js?v=1.4"></script> -->
+<script src="js/tool.js?v=1.1"></script>
+<script src="js/play.js?v=1.3"></script>
+<script type="text/javascript">
+	var IP = tool.getIP();
+	// function getCookie(name){
+	// 	var arg = name + "= ";
+	// 	var alen = arg.length;
+	// 	var clen = document.cookie.length;
+	// 	var cookies = document.cookie.split(';');
+	// 	for (i = 0; i < cookies.length; i++) {
+	// 	    var items = cookies[i].split('=');
+	// 	    if (items[0].replace(/[ ]/g,"") == name)
+	// 	        return cookies[i].substr(cookies[i].indexOf("=")+1, cookies[i].length);
+	// 	    //return items[1];
+	// 	}
+	// 	return null;
+	// };
+	
+	// function getParam(name){
+	// 	var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+	// 	var r = window.location.search.substr(1).match(reg);
+	// 	if (r != null) return unescape(r[2]);
+	// 	return null;
+	// }
+	var ossUserId = tool.getCookie("ossUserId");
+	function submitMin(min,code,isComplete){
+		if(tool.getParam("isUserpaln") == "1"){
+			var data = {
+				calories: Math.ceil(parseInt(min)*5/60),
+				duration:  Math.ceil(parseInt(min)/60),
+				sourceUrl: code,
+				ossUserId: ossUserId,
+				masterId: tool.getCookie("masterId"),
+				isUserpaln: 1,
+				isComplete: isComplete
+			}
+		}else{
+			var data = {
+				calories: Math.ceil(parseInt(min)*5/60),
+				duration:  Math.ceil(parseInt(min)/60),
+				sourceUrl: code,
+				ossUserId: ossUserId,
+				masterId: tool.getCookie("masterId"),
+				isComplete: isComplete
+			}
+		};
+		$.ajax({
+			url: IP+"tvTrainLog/add",
+			type: "post",
+			contentType:"application/json; charset=utf-8",
+			data: JSON.stringify(data),
+			success: function(res){
+				//tool.alertLog(JSON.stringify(res));
+				window.history.go(-1);
+			},
+			error: function(error){
+				//tool.alertLog(JSON.stringify(error));
+				window.history.go(-1);
+			}
+		});
+		
+		setTimeout(function(){
+			window.history.go(-1);
+		},1000)
+	};
+	
+	$(".continue").focus(function(){
+		$(this).find("img").attr("src","images/play/continue-focus.png");
+	}).blur(function(){
+		$(this).find("img").attr("src","images/play/continue.png");
+	});
+	$(".giveup").focus(function(){
+		$(this).find("img").attr("src","images/play/giveup-focus.png");
+	}).blur(function(){
+		$(this).find("img").attr("src","images/play/giveup.png");
+	});
+	
+//     //常用函数
+//    function $(id){return document.getElementById(id);}
+
+    var keyset = {
+        OK: 13, // 确认
+        BACK: 8, // 返回
+        LEFT: 37, // 37 快退 <-
+        RIGHT: 39, // 39 快进 ->
+        VOL_UP : 259, //259 音量 +
+        VOL_DOWN: 260, //260 音量 +
+        MUTE: 261, // 静音
+        PAUSE: 263, //263 暂停
+        FORWARD: 264, //264 快进
+        REWIND: 265 //265 快退
+    }
+	function eventHandler(obj){
+	    switch (obj.code){
+	        case "KEY_BACK":
+				if(backstate){
+					player.pause();
+					backstate = false;
+					if(parseInt(player.getCurrentPlayTime()) >= (parseInt(player.getDurationPlayTime()) - 4)){
+						//训练完成弹窗返回
+						var time = Math.ceil(parseInt(player.getDurationPlayTime()) / 60);
+						var ca = time*5;
+						$(".finshed .time").html(time);
+						$(".finshed .xiaohao").html(ca);
+						$(".finshed").show(function(){
+							$(".finshOk").focus();
+						});
+					}else{
+						//训练未完成弹窗返回
+						var time = Math.ceil(parseInt(player.getCurrentPlayTime()) / 60);
+						var ca = time*5;
+						$(".no-finshed .time").html(time);
+						$(".no-finshed .xiaohao").html(ca);
+						$(".no-finshed").show(function(){
+							$(".continue").focus();
+						});
+					}
+				}
+	            break;
+	        case "KEY_SELECT":
+				if(backstate){
+					player.togglePlay();
+				}
+	            break;
+	        case "KEY_VOLUMEUP":
+				if(backstate){
+					
+					player.volUp();
+				}
+	            break;
+	        case "KEY_VOLUMEDOWN":
+				if(backstate){
+					
+					player.volDown();
+				}
+	            break;
+	        case "KEY_MUTE":
+				if(backstate){
+					
+					player.toggleMute();
+				}
+	            break;
+	        case "KEY_LEFT":
+				if(backstate){
+					
+					// 快退
+					player.fastRewind();
+				}
+	            break;
+	        case "KEY_RIGHT":
+				if(backstate){
+					// 快进
+					player.fastForward();
+					
+				}
+	            break;
+	    }
+	}
+    // function eventHandler(obj){
+    //     event = event ? event : window.event;
+    //     var keycode = event.which ? event.which : event.keyCode;
+    //     switch (keycode){
+    //         case keyset.BACK:
+				// if(backstate){
+				// 	player.togglePlay();
+				// 	backstate = false;
+				// 	if($(".currenttime").html() == $(".alltime").html()){
+				// 		//训练完成弹窗返回
+				// 		var time = parseInt(parseInt(player.getDurationPlayTime()) / 60);
+				// 		var ca = time*5;
+				// 		$(".finshed .time").html(time);
+				// 		$(".finshed .xiaohao").html(ca);
+				// 		$(".finshed").show(function(){
+				// 			$(".finshOk").focus();
+				// 		});
+				// 	}else{
+				// 		//训练未完成弹窗返回
+				// 		var time = parseInt(parseInt(player.getCurrentPlayTime()) / 60);
+				// 		var ca = time*5;
+				// 		$(".no-finshed .time").html(time);
+				// 		$(".no-finshed .xiaohao").html(ca);
+				// 		$(".no-finshed").show(function(){
+				// 			$(".continue").focus();
+				// 		});
+				// 	}
+				// }
+    //             break;
+    //         case keyset.OK:
+    //         case keyset.PAUSE:
+				// if(backstate){
+					
+				// 	player.togglePlay();
+				// }
+    //             break;
+    //         case keyset.VOL_UP:
+				// if(backstate){
+					
+				// 	player.volUp();
+				// }
+    //             break;
+    //         case keyset.VOL_DOWN:
+				// if(backstate){
+					
+				// 	player.volDown();
+				// }
+    //             break;
+    //         case keyset.MUTE:
+				// if(backstate){
+					
+				// 	player.toggleMute();
+				// }
+    //             break;
+    //         case keyset.LEFT:
+    //         case keyset.REWIND:
+				// if(backstate){
+					
+				// 	// 快退
+				// 	player.fastRewind();
+				// }
+    //             break;
+    //         case keyset.RIGHT:
+    //         case keyset.FORWARD:
+				// if(backstate){
+				// 	// 快进
+				// 	player.fastForward();
+					
+				// }
+    //             break;
+    //     }
+    // }
+    //window.document.onkeydown = eventHandler;
+
+    window.onload=function(){
+        //var code = "07000001000000010018001800000000";
+		var code = tool.getParam("code");
+        player.init(code,"",0,0,1280,720,"videoPlay");
+    }
+	
+	//训练未完成点击取消
+	$(".giveup").click(function(){
+		//此处请求接口把训练时间等信息返送给后台
+		//释放播放器资源
+		submitMin(player.getCurrentPlayTime(),tool.getParam("code"),0);
+	});
+	//训练未完成点击确定 返回
+	$(".continue").click(function(){
+		//返回
+		$(".no-finshed").hide();
+		backstate = true;
+		player.togglePlay();
+	});
+	//训练完成点击确定 返回
+	$(".finshOk").click(function(){
+		//返回
+		//此处请求接口把训练时间等信息返送给后台
+		submitMin(player.getDurationPlayTime(),tool.getParam("code"),1);
+	});
+
+	$.ajax({
+		url: "http://10.253.255.149:5124/iptv/fit/adminUserLog/add",
+		type: "post",
+		contentType:"application/json; charset=utf-8",
+		data: JSON.stringify({
+			ossUserId: tool.getCookie("masterId"),
+			sourceDesc: "全屏视频播放页",
+			sourcePath: window.location.href
+		}),
+		success: function(res){
+			
+		},
+		error: function(error){
+			
+		}
+	})
+
+</script>
+</html>

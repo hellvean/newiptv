@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>录入信息</title>
+		<meta name="page-view-size" content="1280*720" />
+		<meta http-equiv="Page-Enter" content="blendTrans(Duration=1.0)" />
+		<link rel="stylesheet" type="text/css" href="new/css/reset.css"/>
+		<link rel="stylesheet" type="text/css" href="new/css/enterInfo.css"/>
+		<style type="text/css">
+			.boy,.girl{
+				float: left;
+				position: relative;
+			}
+			.b_btn{
+				width: 40px;
+				height: 40px;
+				border-radius: 50%;
+				position: absolute;
+				top: 24px;
+				background-color: #535353;
+				outline: none;
+			}
+			.g_btn{
+				width: 40px;
+				height: 40px;
+				border-radius: 50%;
+				position: absolute;
+				top: 24px;
+				background-color: #535353;
+				outline: none;
+			}
+			.img{
+				z-index: 11;
+				position: absolute;
+			}
+			.word{
+				position: absolute;
+				width: 50px;
+				height: 88px;
+				left: 35px;
+				top: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<img src="new/img/enterInfo/logo.png"  class="logo"/>
+		<div class="word1">健身从了解自己开始，也让我们更懂您</div>
+		<div class="sexBox">
+			<div class="label">性别</div>
+			<div class="boy">
+				<input type="button" class="b_btn"/>
+				<img src="new/img/enterInfo/checkB.png" class="img"/>
+				<div class="word">男</div>
+			</div>
+			<div class="girl">
+				<input type="button" class="g_btn"/>
+				<img src="new/img/enterInfo/checkB.png" class="img"/>
+				<div class="word">女</div>
+			</div>
+		</div>
+		<div class="ageBox box">
+			<div class="label">年龄(岁)</div>
+			<input type="text" class="age put"/>
+		</div>
+		<div class="heightBox box">
+			<div class="label">身高(CM)</div>
+			<input type="text" class="height put"/>
+		</div>
+		<div class="weightBox box">
+			<div class="label">体重(KG)</div>
+			<input type="text" class="weight put"/>
+		</div>
+		<a href="javascript:void(0)" class="next">
+			<img src="new/img/enterInfo/nextB.png" />
+		</a>
+	</body>
+	<script src="new/js/jquery-1.8.0.js"></script>
+	<script src="new/js/Defsjs.js"></script>
+	<script>
+		var sex = 1;
+		$('.put').focus(function(){
+			$(this).parent().addClass('putFocus')
+		}).blur(function(){
+			$(this).parent().removeClass('putFocus')
+		})
+		
+		$('.b_btn').focus(function(){
+			console.log(1)
+			sex=1;
+			$(this).parent().find('img').attr('src','new/img/enterInfo/checkF.png')
+			$(this).parent().find('div').css('color','#FFCB05')
+			$(this).parent().siblings('.girl').find('img').attr('src','new/img/enterInfo/checkB.png')
+			$(this).parent().siblings('.girl').find('.word').css('color','#333333')
+		})
+		
+		$('.g_btn').focus(function(){
+			sex = 0;
+			$(this).parent().find('img').attr('src','new/img/enterInfo/checkF.png')
+			$(this).parent().find('div').css('color','#FFCB05')
+			$(this).parent().siblings('.boy').find('img').attr('src','new/img/enterInfo/checkB.png')
+			$(this).parent().siblings('.boy').find('.word').css('color','#333333')
+		})
+		
+		$('.next').focus(function(){
+			$(this).find('img').attr('src','new/img/enterInfo/nextF.png')
+		}).blur(function(){
+			$(this).find('img').attr('src','new/img/enterInfo/nextB.png')
+		})
+		
+		$('.next').click(function(){
+			var age = $('.age').val()
+			var weight = $('.weight').val()
+			var height = $('.height').val()
+			var id = tool.getCookie('idd')
+			$.ajax({
+				type:"post",
+				url:ip+"adminUser/edit",
+				async:true,
+				contentType:"application/json; charset=utf-8",
+				data:JSON.stringify({
+					age:age,
+					gender:sex,
+					weight:weight,
+					height:height,
+					id:id
+				}),
+				success:function(res){
+					if(res['code'] == 0){
+						window.location.href = 'personal.html'
+					}
+				}
+			});
+		})
+		$('.b_btn').focus()
+		function eventHandler(obj){
+	        if(obj.code == "KEY_BACK"){//返回
+	            window.history.back(-1)
+	        }
+	    }
+	</script>
+</html>

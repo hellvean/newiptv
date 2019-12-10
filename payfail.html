@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="page-view-size" content="1280*720" />
+<link rel="stylesheet" href="css/reset.css" />
+<title></title>
+<style>
+.content{
+	width: 1280px;
+	height: 720px;
+	position: relative;
+	background: url(images/paystate/failbg.png) no-repeat center;
+	background-size: 100% 100%;
+}
+.start{
+	position: absolute;
+	top: 435px;
+	right: 300px;
+}
+</style>
+</head>
+<body>
+<div class="content">
+	<a class="start" href="javascript:;">
+		<img src="images/play/ok.png" />
+	</a>
+</div>
+<script src="js/jquery-1.8.0.js"></script>
+<script src="js/template-web.js"></script>
+<script src="js/tool.js"></script>
+<script>
+	
+tool.setLog(tool.getCookie("masterId"),"订购失败",window.location.href);
+	
+//var ossUserId = "123";
+$(".start").eq(0).focus();
+
+$(".start").click(function(){
+	
+	//var url = "http://10.253.255.149:5124/iptv//fit/tvFitUserPlan/newPlan?gender="+tool.getParam("gender")+"&baseType="+tool.getParam("baseType")+"&targetType="+tool.getParam("targetType")+"&partType="+tool.getParam("partType")+"&ossUserId="+ossUserId;
+	//var url = "http://10.253.255.149:5124/iptv/fit/tvFitUserPlan/newPlan?gender=1&baseType=3&targetType=3&partType=3&ossUserId="+ossUserId;
+	
+	// $.ajax({
+	// 	url: url,
+	// 	type: "get",
+	// 	success: function(res){
+	// 		console.log(JSON.stringify(res));
+	// 		if(res.code == 0){
+	// 			window.location.href = "sirendingzhi.html?backurlname=makeplan6";
+	// 		}
+	// 	},
+	// 	error: function(error){
+	// 		console.log(JSON.stringify(error));
+	// 	}
+	// });
+	
+	
+	//返回
+	if(tool.getParam("backurl") == "sirendingzhipersonal" || tool.getParam("backurl") == "sirendingzhi"){
+		window.location.href = "sirendingzhi.html?payType=0&backtype="+tool.getParam("backurl");
+	}else if(tool.getCookie("backurl") == "lessonpersonal" || tool.getCookie("backurl") == "lesson"){
+		window.location.href = "lessiondetail.html?lessonid="+tool.getCookie("id")+"&payType=0&type="+tool.getCookie("type")+"&backtype="+tool.getCookie("backurl");
+	}else if(tool.getParam("backurl") == "order"){
+		window.location.href = "order.html";
+	}else if(tool.getParam("backurl") == "index"){
+		window.location.href = "index.html";
+	}
+})
+function eventHandler(obj){
+	if(obj.code == "KEY_BACK"){
+		//点击返回
+		if(tool.getParam("backurl") == "sirendingzhipersonal" || tool.getParam("backurl") == "sirendingzhi"){
+			window.location.href = "sirendingzhi.html?payType=0&backtype="+tool.getParam("backurl");
+		}else if(tool.getCookie("backurl") == "lessonpersonal" || tool.getCookie("backurl") == "lesson"){
+			window.location.href = "lessiondetail.html?lessonid="+tool.getCookie("id")+"&payType=0&type="+tool.getCookie("type")+"&backtype="+tool.getCookie("backurl");
+		}else if(tool.getParam("backurl") == "order"){
+			window.location.href = "order.html";
+		}else if(tool.getParam("backurl") == "index"){
+			window.location.href = "index.html";
+		}
+	}
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="page-view-size" content="1280*720" />
+		<meta http-equiv="Page-Enter" content="blendTrans(Duration=1.0)" />
+		<title>订购</title>
+		<style type="text/css">
+			html,body{
+				width: 100%;
+				height: 100%;
+				position: relative;
+				background: url(new/img/order/order.png) no-repeat;
+				background-size: 100% 100%;
+				overflow: hidden;
+			}
+			.btn{
+				position: absolute;
+				width: 492px;
+				height: 132px;
+				right: 94px;
+				bottom: 54px;
+			}
+			.btn img{
+				width: 100%;
+				height: 100%;
+			}
+		</style>
+	</head>
+	<body>
+		<a href="javascript:void(0)" class="btn">
+			<img src="new/img/order/noOrder.png" />
+		</a>
+		<!-- <div class="childlock" style="position: absolute;width: 1280px;height: 720px;top: 0;left: 0;z-index: 99;display: none;">
+			<img src="images/lessiondetail/childlock.png" style="position: absolute;width: 1280px;height: 720px;top: 0;left: 0;">
+			<a href="javascript:;" class="finshOk" style="position: absolute;top: 475px;right: 300px;">
+				<img src="images/play/ok.png" />
+			</a>
+		</div> -->
+	</body>
+	<script src="new/js/jquery-1.8.0.js"></script>
+	<script src="new/js/Defsjs.js"></script>
+	<!-- <script src="../../js/sdk.config.js"></script>
+	<script src="../../js/sdk.1.8.4.min.js?v=1.0"></script> -->
+	<script src="js/sdk.config1.8.3.js"></script>
+	<script src="js/sdk.1.8.3.min.js"></script>
+	<script>
+			/* 订购产品 */
+			function orderProduct(productId,customerId,contentId,contentName,price,redirectUrl,failUrl,productIdThird) {
+			    var boxId = "";
+			    var productId = productId;
+				var customerId = customerId;
+				//var customerId = "test0322";
+			    //var customerId = Authentication.CTCGetConfig("UserID");
+			    var contentId = contentId;
+			    var contentName = contentName;
+			    var price = price;
+			    var redirectUrl = redirectUrl;
+			    var failUrl = failUrl;
+			    var broadbandid = customerId;
+			    var param2 = "";
+			    var param3 = "";
+			    var param4 = productIdThird;
+			    var param5 = "";
+			    var userCode = "";
+			    var productIdThird = productIdThird;
+			    var platform = "";
+			    var payVersion = "8004";
+			    var payChannelId = "30239";
+			    var payAppId = "117951805";
+			    var payAppName = "河南沃家游戏";
+			    var payUA = "OTHERTVSTORE_HENANTV";
+				console.log(productId, customerId, contentId, contentName, price, redirectUrl, failUrl);
+			    sdk.doOrderProduct(boxId, productId, customerId, contentId, contentName, price, redirectUrl, failUrl, broadbandid, param2, param3, param4, param5, userCode, productIdThird, platform, payVersion, payChannelId, payAppId, payAppName, payUA, function (resultCode, resultMsg) {
+			            console.log("resultCode:" + resultCode + ";resultMsg:" + resultMsg);
+			            //tool.alertLog("resultCode:" + resultCode + ";resultMsg:" + resultMsg)
+			        }
+			    );
+			}
+			/* 鉴权	*/
+			function getProducts() {
+			    var contentId = "2476005600";
+			    //var contentId = "productIDa1000000000000000000009";
+				//var customerId = "test032403";
+				var customerId = Authentication.CTCGetConfig("UserID");
+				var productIds = new Array();
+				productIds[0] = "1110000234";
+				//productIds[0] = "1110000000";
+				//productIds[1] = "1000000059";
+				var userCode = "";
+				var productIdThirds = null;
+			    sdk.doGetProducts(contentId, customerId, productIds, userCode, productIdThirds, function (resultCode, resultMsg) {
+			        //console.log(resultCode,JSON.parse(resultMsg).list);
+					//获取订购产品相关参数
+					var list = JSON.parse(resultMsg).list ? JSON.parse(resultMsg).list[0] : [];
+					//orderProduct(list.productId,customerId,list.contentId,list.productName,list.productPrice,window.location.href,"http://10.253.255.149:5124/tv/index.html");
+					if(resultCode == 1){
+						
+						if(list.status == 0 || list.status == 2){
+							//未订购
+							orderProduct(list.productId,customerId,list.contentId,list.productName,list.productPrice,"http://10.253.255.149:5124/tv/paysuccess.html?backurl=order","http://10.253.255.149:5124/tv/payfail.html?backurl=order",list.productIdThird);
+						}else{
+							//已订购
+						}
+					}
+			    });
+			};
+		
+		$(".btn").click(function(){
+			getProducts();
+			//这里判断童锁
+			// $.ajax({
+			// 	type:"get",
+			// 	url:"http://10.253.255.42:14521/childLock/validate/"+Authentication.CTCGetConfig("UserID")+"/1110000000",
+			// 	data:{
+			// 		userId: Authentication.CTCGetConfig("UserID"),
+			// 		productId: "1110000000"
+			// 	},
+			// 	success:function(res){
+			// 		if(res == true){
+			// 			$(".childlock").show(function(){
+			// 				$(".finshOk").focus();
+			// 			})
+			// 		}else{
+			// 			getProducts();
+			// 		}
+			// 	}
+			// });
+		})
+		// $(".finshOk").click(function(){
+		// 	$(".childlock").hide(function(){
+		// 		$(".diversity-wrap:eq("+currentFenji+") .diversity-item:first").focus();
+		// 	});
+		// });
+		
+		function eventHandler(obj){
+	        if(obj.code == "KEY_BACK"){//返回
+	            //window.history.back(-1)
+				window.location.href = "index.html";
+	        }
+	    }
+	</script>
+</html>

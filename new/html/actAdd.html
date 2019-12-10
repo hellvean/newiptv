@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>添加账号</title>
+		<meta name="page-view-size" content="1280*720" />
+		<meta http-equiv="Page-Enter" content="blendTrans(Duration=1.0)" />
+		<link rel="stylesheet" type="text/css" href="../css/reset.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/actAdd.css"/>
+	</head>
+	<body>
+		<div class="title">添加账号/更换头像</div>
+		<div class="userBox">
+			<!--<a href="javascript:void(0)" class="user">
+				<img src="../img/personal/head.png" class="head"/>
+				<div class="name">腹肌鲜肉</div>
+				<img src="../img/personal/nowAccount.png" class="nowAccount"/>
+			</a>
+			<a href="javascript:void(0)" class="user">
+				<img src="../img/personal/head.png" class="head"/>
+				<div class="name">腹肌鲜肉</div>
+				
+			</a>
+			<a href="javascript:void(0)" class="user">
+				<img src="../img/personal/head.png" class="head"/>
+				<div class="name">腹肌鲜肉</div>
+				
+			</a>
+			<a href="javascript:void(0)" class="user">
+				<img src="../img/personal/head.png" class="head"/>
+				<div class="name">腹肌鲜肉</div>
+				
+			</a>
+			<a href="javascript:void(0)" class="user">
+				<img src="../img/personal/head.png" class="head"/>
+				<div class="name">腹肌鲜肉</div>
+				
+			</a>
+			<a href="javascript:void(0)" class="user">
+				<img src="../img/personal/head.png" class="head"/>
+				<div class="name">腹肌鲜肉</div>
+				
+			</a>-->
+		</div>
+	</body>
+	<script src="../js/jquery-1.8.0.js"></script>
+	<script src="../js/Defsjs.js"></script>
+	<script>
+		
+		
+		
+		$.ajax({
+			type:"get",
+			url:ip+"tvUserTemplate/listAll",
+			async:true,
+			success:function(res){
+				var oData = res['result']
+				var ohtml = "";
+				$.each(oData, function(key,val) {
+					ohtml+="<a href='javascript:void(0)' data-id="+ val['id'] +" class='user'>"
+							+"<img src="+ val['image'] +" class='head'/>"
+							+"<div class='name'>"+ val['userName'] +"</div></a>"	
+				});
+				$('.userBox').append(ohtml)
+				$('.userBox .user:first').focus();
+			}
+		});
+		
+		$('.userBox').on('focus','.user',function(){
+			var html="<img src='../img/personal/nowAccount.png' class='nowAccount'/>"
+			$(this).append(html)
+		})
+		$('.userBox').on('blur','.user',function(){
+			$(this).find('.nowAccount').remove()
+		})
+		
+		
+		$('.userBox').on('click','.user',function(){
+			var id = $(this).attr('data-id')
+			$.ajax({
+				type:"post",
+				url:ip+"adminUser/add",
+				async:true,
+				contentType:"application/json; charset=utf-8",
+				data:JSON.stringify({
+					masterId:masterId,
+					userTemplateId:id,
+					isMain:0
+				}),
+				success:function(res){
+					if(res.code == 0){
+						window.history.back(-1)
+					}
+				}
+			});
+		})
+		
+		function eventHandler(obj){
+	        if(obj.code == "KEY_BACK"){//返回
+	            window.history.back(-1)
+	        }
+	    }
+		
+		
+	</script>
+</html>

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>切换账号</title>
+		<meta name="page-view-size" content="1280*720" />
+		<meta http-equiv="Page-Enter" content="blendTrans(Duration=1.0)" />
+		<link rel="stylesheet" type="text/css" href="new/css/reset.css"/>
+		<link rel="stylesheet" type="text/css" href="new/css/actManage.css"/>
+		<style type="text/css">
+			.hide{
+				display: none;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="title">切换账号</div>
+		<a href="javascript:void(0)" class="manage">
+			<img src="new/img/personal/manageB.png" />
+		</a>
+		<div class="userBox">
+			<div class="content">
+				
+			</div>
+			<a href='javascript:void(0)' class='addBox'>
+				<img src='new/img/personal/addB.png' class='add'/>
+			</a>
+			<!--<div class="box">
+				<a href="javascript:void(0)" class="user" data-default=1>
+					<img src="../img/personal/head.png" class="head"/>
+					<div class="name">腹肌鲜肉</div>
+					<img src='../img/personal/nowAccount.png' class='nowAccount'/><img src='../img/personal/ring.png' class='ring'/>
+				</a>
+			</div>
+			<div class="box">
+				<a href="javascript:void(0)" class="user">
+					<img src="../img/personal/head.png" class="head"/>
+					<div class="name">腹肌鲜肉</div>
+					
+				</a>
+			</div>
+			<div class="box">
+				<a href="javascript:void(0)" class="user">
+					<img src="../img/personal/head.png" class="head"/>
+					<div class="name">腹肌鲜肉</div>
+				</a>
+			</div>
+			<a href="javascript:void(0)" class="addBox">
+				<img src="../img/personal/addB.png" class="add"/>
+			</a>-->
+			<!--<a href="javascript:void(0)" class="user activeUser">
+				<img src="../img/personal/head.png" class="head"/>
+				<div class="name">腹肌鲜肉</div>
+				
+			</a>
+			<a href="javascript:void(0)" class="user activeUser">
+				<img src="../img/personal/head.png" class="head"/>
+				<div class="name">腹肌鲜肉</div>
+				
+			</a>
+			<a href="javascript:void(0)" class="user activeUser">
+				<img src="../img/personal/head.png" class="head"/>
+				<div class="name">腹肌鲜肉</div>
+				
+			</a>
+			<a href="javascript:void(0)" class="user activeUser">
+				<img src="../img/personal/head.png" class="head"/>
+				<div class="name">腹肌鲜肉</div>
+				
+			</a>
+			<a href="javascript:void(0)" class="user activeUser">
+				<img src="../img/personal/head.png" class="head"/>
+				<div class="name">腹肌鲜肉</div>
+				
+			</a>-->
+		</div>
+	</body>
+	<script src="new/js/jquery-1.8.0.js"></script>
+	<script src="new/js/Defsjs.js"></script>
+	<script>
+		
+		var isManage = false;
+		var masterId = tool.getCookie('masterId')!=""? tool.getCookie('masterId'):ossUserId;
+		
+		$('.manage').focus(function(){
+			$(this).find('img').attr('src','new/img/personal/manageF.png')
+		}).blur(function(){
+			$(this).find('img').attr('src','new/img/personal/manageB.png')
+		})
+		
+		$('.userBox').on('focus','.addBox',function(){
+			$(this).find('img').attr('src','new/img/personal/addF.png')
+		})
+		$('.userBox').on('blur','.addBox',function(){
+			$(this).find('img').attr('src','new/img/personal/addB.png')
+		})
+		
+		$('.manage').focus()
+		$('.manage').click(function(){
+			window.location.href = 'actManage1.html'
+		})
+		$('.userBox').on('click','.addBox',function(){
+			window.location.href = 'actAdd.html'
+		})
+
+		
+		$.ajax({
+			type:"get",
+			url:ip+"adminUser/listAll",
+			async:true,
+			data:{
+				masterId:masterId
+			},
+			success:function(res){
+				var oData = res['result'];
+				var ohtml = "";
+				$.each(oData, function(key,val) {
+							
+					if(val.isMain ==1 && val.ossUserId == ossUserId){
+						ohtml+="<div class='box'>"
+								+"<div class='user' data-id="+ val['id'] +">"
+									+"<img src="+ val['userTemplate']['image'] +" class='head'/>"
+									+"<div class='name'>"+ val['userTemplate']['userName']+"(默认用户)" +"</div>"
+									+"<img src='new/img/personal/nowAccount.png' class='nowAccount'/><img src='new/img/personal/ring.png' class='ring'/>"
+								+"</div>"
+							+"</div>"
+					}else if(val.isMain ==1 && val.ossUserId != ossUserId){
+						ohtml+="<div class='box'>"
+								+"<div class='user' data-id="+ val['id'] +">"
+									+"<img src="+ val['userTemplate']['image'] +" class='head'/>"
+									+"<div class='name'>"+ val['userTemplate']['userName']+"(默认用户)" +"</div>"
+								+"</div>"
+							+"</div>"
+					}else if(val.isMain !=1 && val.ossUserId == ossUserId){
+						ohtml+="<div class='box'>"
+								+"<div  class='user' data-id="+ val['id'] +">"
+									+"<img src="+ val['userTemplate']['image'] +" class='head'/>"
+									+"<div class='name'>"+ val['userTemplate']['userName']+"</div>"
+									+"<img src='new/img/personal/nowAccount.png' class='nowAccount'/><img src='new/img/personal/ring.png' class='ring'/>"
+								+"</div>"
+							+"</div>"
+					}else if(val.isMain !=1 && val.ossUserId != ossUserId){
+						ohtml+="<div class='box'>"
+								+"<div class='user' data-id="+ val['id'] +">"
+									+"<img src="+ val['userTemplate']['image'] +" class='head'/>"
+									+"<div class='name'>"+ val['userTemplate']['userName']+"</div>"
+								+"</div>"
+							+"</div>"
+					}
+				});
+				if(oData.length==10){
+					$('.addBox').addClass('hide')
+//					ohtml+="<a href='javascript:void(0)' class='addBox'>"
+//							+"<img src='../img/personal/addB.png' class='add'/>"
+//						+"</a>"
+				}
+				$('.content').append(ohtml)	
+			}
+		});
+		
+//		$('.user').focus(function(){
+//			var html="<img src='../img/personal/nowAccount.png' class='nowAccount'/><img src='../img/personal/ring.png' class='ring'/>"
+//			$(this).append(html)
+//		}).blur(function(){
+//			$(this).find('.nowAccount,.ring').remove()
+//		})
+
+		
+		function eventHandler(obj){
+	        if(obj.code == "KEY_BACK"){//返回
+	            window.location.href='personal.html'
+	        }
+	    }
+	</script>
+</html>

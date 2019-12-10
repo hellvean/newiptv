@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="page-view-size" content="1280*720" />
+<link rel="stylesheet" href="css/reset.css" />
+<title></title>
+<style>
+.content{
+	width: 1120px;
+	height: 560px;
+	position: relative;
+	background: url(images/makeplan/bg.png) no-repeat center;
+	background-size: 100% 100%;
+	padding: 80px;
+}
+.question{
+	color: #fff;
+	font-size: 36px;
+	margin-bottom: 60px;
+}
+.sex .sex-type{
+	text-align: center;
+	font-size:36px;
+	color: #FEFEFE;
+	margin-top: 20px;
+}
+</style>
+</head>
+<body>
+<div class="content">
+	<script type="text/html" id="content">
+		<div class="question">4.您的健身目标？</div>
+		{{if data == "1"}}
+			<div class="select-wrap clean">
+				<a href="javascript:;" class="left sex man" data-type="1">
+					<img src="images/makeplan/4-1.png" />
+					<div class="sex-type" style="color: #FFCB05;">塑形</div>
+					<div class="sex-type" style="color: #FFCB05;font-size: 20px;">体型匀称，期待清晰肌肉线条</div>
+				</a>
+				<a href="javascript:;" class="left sex man" style="margin: 0 80px;" data-type="2">
+					<img src="images/makeplan/4-2.png" />
+					<div class="sex-type">增肌</div>
+					<div class="sex-type" style="font-size: 20px;">小有肌肉，想强壮肌肉线条</div>
+				</a>
+				<a href="javascript:;" class="left sex man" data-type="3">
+					<img src="images/makeplan/4-3.png" />
+					<div class="sex-type">燃脂</div>
+					<div class="sex-type" style="font-size: 20px;">体脂偏高，想快速减肥</div>
+				</a>
+			</div>
+		{{else}}
+			<div class="select-wrap clean">
+				<a href="javascript:;" class="left sex women" data-type="1">
+					<img src="images/makeplan/4-1-2.png" />
+					<div class="sex-type" style="color: #FFCB05;">塑形</div>
+					<div class="sex-type" style="color: #FFCB05;font-size: 20px;">体型匀称，期待清晰肌肉线条</div>
+				</a>
+				<a href="javascript:;" class="left sex women" style="margin: 0 80px;" data-type="2">
+					<img src="images/makeplan/4-2-2.png" />
+					<div class="sex-type" style="color: #FFCB05;">增肌</div>
+					<div class="sex-type" style="font-size: 20px;">小有肌肉，想强壮肌肉线条</div>
+				</a>
+				<a href="javascript:;" class="left sex women" data-type="3">
+					<img src="images/makeplan/4-3-2.png" />
+					<div class="sex-type" style="color: #FFCB05;">燃脂</div>
+					<div class="sex-type" style="font-size: 20px;">体脂偏高，想快速减肥</div>
+				</a>
+			</div>
+		{{/if}}
+	</script>
+</div>
+<script src="js/jquery-1.8.0.js"></script>
+<script src="js/template-web.js"></script>
+<script src="js/tool.js"></script>
+<script>
+var man = [
+	"images/makeplan/4-1.png",
+	"images/makeplan/4-2.png",
+	"images/makeplan/4-3.png",
+	"images/makeplan/4-1-focus.png",
+	"images/makeplan/4-2-focus.png",
+	"images/makeplan/4-3-focus.png"
+];
+var woman = [
+	"images/makeplan/4-1-2.png",
+	"images/makeplan/4-2-2.png",
+	"images/makeplan/4-3-2.png",
+	"images/makeplan/4-1-2-focus.png",
+	"images/makeplan/4-2-2-focus.png",
+	"images/makeplan/4-3-2-focus.png"
+];
+document.getElementsByClassName("content")[0].innerHTML = template('content', {
+	data: tool.getParam("gender")
+});
+	
+$(".man").focus(function(){
+	var index = parseInt($(this).attr("data-type")) + 2;
+	$(this).find("img").attr("src",man[index]);
+	$(this).find(".sex-type").css("color","#FFCB05");
+}).blur(function(){
+	var index = parseInt($(this).attr("data-type")) - 1;
+	$(this).find("img").attr("src",man[index]);
+	$(this).find(".sex-type").css("color","#FEFEFE");
+});
+
+$(".women").focus(function(){
+	var index = parseInt($(this).attr("data-type")) + 2;
+	$(this).find("img").attr("src",woman[index]);
+	$(this).find(".sex-type").css("color","#FFCB05");
+}).blur(function(){
+	var index = parseInt($(this).attr("data-type")) - 1;
+	$(this).find("img").attr("src",woman[index]);
+	$(this).find(".sex-type").css("color","#FEFEFE");
+});
+
+$(".sex").eq(0).focus();
+
+$(".sex").click(function(){
+	window.location.href = "makeplan5.html?gender="+tool.getParam("gender")+"&weight="+tool.getParam("weight")+"&baseType="+tool.getParam("baseType")+"&targetType="+$(this).attr("data-type");
+})
+
+//返回事件
+function back(){
+	//重置一部分Cookie
+	window.history.go(-1);
+}
+	
+//遥控器事件
+function eventHandler(obj){
+	if(obj.code == "KEY_BACK"){
+		//点击返回
+		back();
+ 	}
+}
+</script>
+</body>
+</html>

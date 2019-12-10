@@ -1,0 +1,93 @@
+html,
+body {
+	width: 1280px;
+	height: 720px;
+}
+
+body {
+	background-color: black;
+	position: relative;
+	overflow: hidden;
+}
+.title{
+	font-size: 48px;
+	color: #FFFFFF;
+	margin-left: 81px;
+	margin-top: 41px;
+	float: left;
+}
+.manage,.success{
+	width: 160px;
+	height: 80px;
+	float: left;
+	margin-left: 769px;
+	margin-top: 36px;
+}
+.manage img,.success img{
+	width: 100%;
+	height: 100%;
+}
+
+.userBox{
+	width: 100%;
+	height: auto;
+	clear: both;
+}
+.userBox .box{
+	width: auto;
+	height: 300px;
+	float: left;
+}
+.userBox .user,.addBox{
+	width: 160px;
+	/*height: 230px;*/
+	height: auto;
+	margin-left: 80px;
+	margin-top: 48px;
+	float: left;
+	position: relative;
+}
+.user .head,.addBox .add{
+	width: 160px;
+	height: 160px;
+	border-radius: 50%;
+}
+.user .nowAccount{
+	margin-left: 20px;
+	margin-top: 19px;
+}
+.user .name{
+	width: 100%;
+	text-align: center;
+	font-size: 18px;
+	color: #CCCCCC;
+	margin-top: 16px;
+}
+.edit{
+	width: 33px;
+	height: 38px;
+	margin-left: 110px;
+}
+.edit img{
+	width: 100%;
+	height: 100%;
+}
+.del img{
+	width: 100%;
+	height: 100%;
+}
+.del{
+	width: 35px;
+	height: 40px;
+	margin-left: 30px;
+}
+.hide{
+	display: none;
+}
+.ring{
+    position: absolute;
+    width: 172px;
+    height: 172px;
+    left: -6px;
+    top: -6px;
+}

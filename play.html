@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="page-view-size" content="1280*720" />
+<link rel="stylesheet" href="css/reset.css" />
+<title></title>
+<style>
+.content{
+	width: 1280px;
+	height: 720px;
+	position: relative;
+	background: none;
+	background: transparent;
+	background-size: 100% 100%;
+}
+.finshed{
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	background: url(images/play/02.png) no-repeat center;
+	background-size: 100% 100%;
+	display: none;
+}
+.finshed a{
+	position: absolute;
+	top: 475px;
+	right: 300px;
+}
+.finshed > div,.no-finshed > div{
+	width: 210px;
+	text-align: center;
+	font-size:48px;
+	font-weight:bold;
+	color:rgba(255,203,5,1);
+	position: absolute;
+	top: 340px;
+}
+.time{
+	right:390px;
+}
+.xiaohao{
+	right:180px;
+}
+.no-finshed{
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	background: url(images/play/01.png) no-repeat center;
+	background-size: 100% 100%;
+	display: none;
+}
+.no-finshed a{
+	position: absolute;
+	top: 475px;
+}
+.continue{
+	right:400px;
+}
+.giveup{
+	right:200px;
+}
+.process{
+	width: 1000px;
+	height: 12px;
+	background: url(images/play/process.png) no-repeat center;
+	background-size: 100% 100%;
+	position: absolute;
+	bottom: 50px;
+	left: 140px;
+}
+.process-bar{
+	height: 100%;
+	border-radius: 2px;
+	background: #FDA60F;
+	position: absolute;
+	left: 0;
+}
+.process-bar img{
+	position: absolute;
+	right: -18px;
+	top: -23px;
+}
+.controls{
+	width: 100%;
+	height: 180px;
+	position: absolute;
+	bottom: 0;
+	background: url(images/play/mask.png) no-repeat center;
+	display: none;
+}
+.retreat{
+	position: absolute;
+	left: 140px;
+	top: 30px;
+	display: none;
+}
+.forward{
+	position: absolute;
+	right: 140px;
+	top: 30px;
+	display: none;
+}
+.play{
+	position: absolute;
+	left: 50%;
+	margin-left: -40px;
+	display: none;
+}
+.currenttime{
+	position: absolute;
+	top: -50px;
+	left: 0;
+	font-size: 24px;
+	font-weight: 600;
+	color: #fff;
+}
+.alltime{
+	position: absolute;
+	top: -50px;
+	right: 0;
+	font-size: 24px;
+	font-weight: 600;
+	color: #fff;
+}
+.vioce{
+	width: 230px;
+	height: 34px;
+	position: absolute;
+	top: 80px;
+	left: 50%;
+	margin-left: -115px;
+	display: none;
+}
+.vioce-process{
+	width: 190px;
+	height: 10px;
+	position: absolute;
+	background: #ccc;
+	border-radius: 5px;
+	top: 12px;
+	left: 30px;
+}
+.vioce-process-bar{
+	height: 10px;
+	width: 50%;
+	background: #FDA60F;
+	position: absolute;
+	border-radius: 5px;
+}
+.mute{
+	position: absolute;
+	top: 80px;
+	left: 48%;
+	display: none;
+}
+</style>
+</head>
+<body>
+<div class="content">
+	<div class="vioce">
+		<img src="images/play/vioce.png" />
+		<div class="vioce-process">
+			<div class="vioce-process-bar"></div>
+		</div>
+	</div>
+	<img src="images/play/mute.png" class="mute" />
+	<div class="controls">
+		<div class="retreat">
+			<img src="images/play/retreat.png" />
+		</div>
+		<div class="forward">
+			<img src="images/play/forward.png" />
+		</div>
+		<div class="play">
+			<img src="images/play/pause.png" />
+		</div>
+		<div class="process">
+			<div class="currenttime">00:00:00</div>
+			<div class="alltime">00:00:00</div>
+			<div class="process-bar">
+				<img src="images/play/process-icon.png" />
+			</div>
+		</div>
+	</div>
+	
+	<div class="finshed">
+		<div class="time">99</div>
+		<div class="xiaohao">999</div>
+		<a href="javascript:;" class="finshOk">
+			<img src="images/play/ok.png" />
+		</a>
+	</div>
+	<div class="no-finshed">
+		<div class="time">99</div>
+		<div class="xiaohao">999</div>
+		<a href="javascript:;" class="continue">
+			<img src="images/play/continue.png" />
+		</a>
+		<a href="javascript:;" class="giveup">
+			<img src="images/play/giveup.png" />
+		</a>
+	</div>
+</div>
+<script src="js/jquery-1.8.0.js"></script>
+<script src="js/tool.js"></script>
+<script>
+
+$(".continue").focus(function(){
+	$(this).find("img").attr("src","images/play/continue-focus.png");
+}).blur(function(){
+	$(this).find("img").attr("src","images/play/continue.png");
+});
+$(".giveup").focus(function(){
+	$(this).find("img").attr("src","images/play/giveup-focus.png");
+}).blur(function(){
+	$(this).find("img").attr("src","images/play/giveup.png");
+});
+
+var ossUserId = tool.getCookie("ossUserId");
+var IP = tool.getIP();
+function submitMin(min,code,isComplete){
+	if(tool.getParam("isUserpaln") == "1"){
+		var data = {
+			calories: Math.ceil(parseInt(min)*5/60),
+			duration:  Math.ceil(parseInt(min)/60),
+			sourceUrl: code,
+			ossUserId: ossUserId,
+			masterId: tool.getCookie("masterId"),
+			isUserpaln: 1,
+			isComplete: isComplete
+		}
+	}else{
+		var data = {
+			calories: Math.ceil(parseInt(min)*5/60),
+			duration:  Math.ceil(parseInt(min)/60),
+			sourceUrl: code,
+			ossUserId: ossUserId,
+			masterId: tool.getCookie("masterId"),
+			isComplete: isComplete
+		}
+	}
+	$.ajax({
+		url: IP+"tvTrainLog/add",
+		type: "post",
+		contentType:"application/json; charset=utf-8",
+		data: JSON.stringify(data),
+		success: function(res){
+			//tool.alertLog(JSON.stringify(res));
+			window.history.go(-1);
+		},
+		error: function(error){
+			//tool.alertLog(JSON.stringify(error));
+			window.history.go(-1);
+		}
+	});
+	
+	setTimeout(function(){
+		window.history.go(-1);
+	},1000)
+};
+
+//var playUrl = "rtsp://220.191.136.24/88888888/16/20190326/273329920/273329920.ts";
+var playUrl = tool.getParam("playUrl"); //河南
+//tool.alertLog(playUrl)
+// var lessionid = "137";
+// var video_id = "875";
+//var videoDisplayMode = "1";
+var backstate = true; //弹窗返回 true表示弹窗未显示 false表示弹窗已显示,遥控器其它按钮事件失效
+var forwardTime = 0; //快进时间
+var backTime = 0;  //快退时间
+var DTime = 0;  //差值时间
+
+var mp = new MediaPlayer(); //初始化播放器对象
+var speed = 1; //初始化播放器播放速度
+
+function initMediaPlay(){
+	
+	var mediaStr = '[{mediaUrl:"'+ playUrl +'",';
+	mediaStr += 'mediaCode: "jsoncode1",';
+	mediaStr += 'mediaType:2,';
+	mediaStr += 'audioType:1,';
+	mediaStr += 'videoType:3,';
+	mediaStr += 'streamType:1,';
+	mediaStr += 'drmType:1,';
+	mediaStr += 'fingerPrint:0,';
+	mediaStr += 'copyProtection:1,';
+	mediaStr += 'allowTrickmode:0,';
+	mediaStr += 'startTime:0,';
+	mediaStr += 'endTime:'+mp.getMediaDuration()+',';
+	//    mediaStr += '0,';
+	mediaStr += 'entryID:"jsonentry1"}]';
+	
+	var instanceId = mp.getNativePlayerInstanceID(); //读取本地的媒体播放实例的标识
+	var playListFlag = 0; //Media Player 的播放模式。 0：单媒体的播放模式 (默认值)，1: 播放列表的播放模式
+	var videoDisplayMode = 1; //MediaPlayer 对象对应的视频窗口的显示模式. 1: 全屏显示2: 按宽度显示，3: 按高度显示
+	
+	var height = 720;
+	var width = 1280;
+	var left = 0;
+	var top = 0;
+	
+	var muteFlag = 0; //0: 设置为有声 (默认值) 1: 设置为静音
+	var subtitleFlag = 0; //字幕显示
+	var videoAlpha = 0; //视频的透明度
+	
+	var cycleFlag = 1;  //循环播放 0：循环播放   1：单次播放
+	var randomFlag = 0;     //随机播放
+	var autoDelFlag = 0;
+	var useNativeUIFlag = 0;
+	
+	//初始话mediaplayer对象
+	mp.initMediaPlayer(instanceId,playListFlag,videoDisplayMode,height,width,left,top,muteFlag,useNativeUIFlag,subtitleFlag,videoAlpha,cycleFlag,randomFlag,autoDelFlag);
+	
+	mp.setSingleMedia(mediaStr); //设置媒体播放器播放媒体内容
+	mp.setAllowTrickmodeFlag(0); //设置是否允许trick操作。 0:允许 1：不允许
+	
+	mp.setNativeUIFlag(0); //播放器是否显示缺省的Native UI，  0:允许 1：不允许
+	mp.setAudioTrackUIFlag(1);//设置音轨的本地UI显示标志 0:不允许 1：允许
+	
+	mp.setMuteUIFlag(1); //设置静音的本地UI显示标志 0:不允许 1：允许
+	mp.setAudioVolumeUIFlag(1);//设置音量调节本地UI的显示标志 0:不允许 1：允许
+	mp.refreshVideoDisplay();
+	mp.setVolume(50);
+}
+
+function start(){//进入页面后直接播放
+	initMediaPlay();
+	mp.playByTime(1,0,1);
+}
+
+//时间秒数转时间格式00:00:00
+function secondToDate(result) {
+	var h = Math.floor(result / 3600) < 10 ? '0'+Math.floor(result / 3600) : Math.floor(result / 3600);
+	var m = Math.floor((result / 60 % 60)) < 10 ? '0' + Math.floor((result / 60 % 60)) : Math.floor((result / 60 % 60));
+	var s = Math.floor((result % 60)) < 10 ? '0' + Math.floor((result % 60)) : Math.floor((result % 60));
+	return result = h + ":" + m + ":" + s;
+}
+
+var resetTimer=null;
+//数值初始化
+function resetData(){
+	clearTimeout(resetTimer);
+	resetTimer = setTimeout(function(){
+	    $(".controls").hide();
+		$(".retreat").hide();
+		$(".forward").hide();
+		
+	    mp.playByTime(1,DTime,1);
+		
+	    DTime = 0;
+	    forwardTime = 0;
+	    backTime = 0;
+	},500);
+};
+
+//声音初始化
+var volseTimer = null;
+function hidevolume(){
+	clearTimeout(volseTimer);
+	volseTimer = setTimeout(function(){
+		$(".vioce").hide();
+	},1000);
+};
+//音量条
+function volupdown(v){
+	var w=((v/100).toFixed(2))*190;
+	$(".vioce-process-bar").css("width",w+'px');
+	if(v == 0){
+		//音量为 显示静音图标
+		$(".vioce").hide();
+		$(".mute").show();
+	}else{
+		//音量不为静音 隐藏静音图标
+		$(".mute").hide();
+		$(".vioce").show();
+	}
+}
+
+//视频数据初始化获取
+function goUtility(){
+	$(".alltime").html(secondToDate(mp.getMediaDuration()));
+	$(".currenttime").html(secondToDate(mp.getCurrentPlayTime()));
+	var ww = (mp.getCurrentPlayTime()*1000/mp.getMediaDuration()).toFixed(2);
+	$(".process-bar").css("width",ww+'px');
+	eval("eventJson = " + Utility.getEvent());
+	var typeStr = eventJson.type;
+	switch(typeStr) {
+	    case "EVENT_MEDIA_BEGINING":
+	        return false;
+	    case "EVENT_MEDIA_ERROR":
+			//视频出现错误
+			console.log(eventJson.error_code,eventJson.error_message);
+	        return false;
+	    case "EVENT_MEDIA_END":
+			//播放结束
+			if(videoDisplayMode == "1"){
+				//全屏播放
+				if(backstate){
+					backstate = false;
+					var time = parseInt(parseInt(mp.getMediaDuration()) / 60);
+					var ca = time*5;
+					$(".finshed .time").html(time);
+					$(".finshed .xiaohao").html(ca);
+					$(".finshed").show(function(){
+						$(".finshOk").focus();
+					});
+				}
+			}else{
+				//小视频播放
+				stop();
+			}
+	        return false;
+	    default :
+	        break;
+	}
+	return true;
+}
+
+//快退事件
+function retreat(){
+	$(".retreat").show();
+	$(".controls").show();
+	var alltime = parseInt(mp.getMediaDuration());
+	backTime += 10;
+	DTime = parseInt(mp.getCurrentPlayTime()) - backTime; // 减少10秒后的播放位置
+	if(DTime > 0){
+	    $(".currenttime").html(secondToDate(DTime));
+	}else{
+	   $(".currenttime").html('00:00:00');
+	   DTime = 0;
+	};
+	var ww = (DTime*1000/parseInt(mp.getMediaDuration())).toFixed(2);
+	$(".process-bar").css("width",ww+'px');
+	resetData();
+};
+//快进事件
+function forward(){
+	$(".forward").show();
+	$(".controls").show();
+	var alltime = parseInt(mp.getMediaDuration());
+	forwardTime += 10;
+	DTime = parseInt(mp.getCurrentPlayTime()) + forwardTime; // 增加10秒后的播放位置
+	if(DTime < alltime){
+	    $(".currenttime").html(secondToDate(DTime));
+	}else{
+	    $(".currenttime").html(secondToDate(parseInt(mp.getMediaDuration())));
+	    DTime = parseInt(mp.getMediaDuration());
+	};
+	var ww = (DTime*1000/parseInt(mp.getMediaDuration())).toFixed(2);
+	$(".process-bar").css("width",ww+'px');
+	resetData();
+};
+//音量加事件
+function vioceup(){
+	var vol = mp.getVolume();
+	vol = (vol <= 100 ? vol+1 : 100);
+	mp.setVolume(vol);
+	volupdown(vol);
+	hidevolume();
+}
+//音量减事件
+function viocedown(){
+	var vol = mp.getVolume();
+	vol = (vol > 0 ? vol-1 : 0);
+	mp.setVolume(vol);
+	volupdown(vol);
+	hidevolume();
+}
+//静音
+function volMute() {
+	vol = 0 ;
+	mp.setVolume(vol);
+	//显示静音图标
+	$(".mute").show();
+}
+//暂定事件
+function play2(){
+	//暂停为播放 播放为暂停 按确定键触发
+	if(speed == 1){
+		//暂停
+	    mp.pause();
+		setTimeout(function(){
+			$(".play").show();
+			$(".controls").show();
+			speed = 0;
+		},200)
+		var ww = (mp.getCurrentPlayTime()*1000/mp.getMediaDuration()).toFixed(2);
+		$(".currenttime").html(secondToDate(mp.getCurrentPlayTime()));
+		$(".process-bar").css("width",ww+'px');
+	}else{
+		//播放
+	    mp.resume();
+		setTimeout(function(){
+			$(".play").hide();
+			$(".controls").hide();
+			speed = 1;
+		},200)
+	}
+};
+
+//停止播放事件
+function stop(){
+	mp.stop();
+}
+
+//返回事件
+//这里区分是否有弹窗出现 以及视频是否播放完毕
+function back(){
+	if(backstate){
+		mp.pause();
+		speed = 0;
+		backstate = false;
+		if(parseInt(mp.getCurrentPlayTime()) >= (parseInt(mp.getMediaDuration()) - 4)){
+			//训练完成弹窗返回
+			var time = Math.ceil(parseInt(mp.getMediaDuration()) / 60);
+			var ca = time*5;
+			$(".finshed .time").html(time);
+			$(".finshed .xiaohao").html(ca);
+			$(".finshed").show(function(){
+				$(".finshOk").focus();
+			});
+		}else{
+			//训练未完成弹窗返回
+			var time = Math.ceil(parseInt(mp.getCurrentPlayTime()) / 60);
+			var ca = time*5;
+			$(".no-finshed .time").html(time);
+			$(".no-finshed .xiaohao").html(ca);
+			$(".no-finshed").show(function(){
+				$(".continue").focus();
+			});
+		}
+	}else{
+		//已弹窗
+	}
+}
+
+//遥控器事件
+function eventHandler(obj){
+	if(obj.code == "KEY_RIGHT"){
+		//快进
+		if(backstate){
+			forward();
+		}
+	}else if(obj.code == "KEY_LEFT"){
+		//快退
+		if(backstate){
+			retreat();
+		}
+	}else if(obj.code == "KEY_VOLUMEUP"){
+		//音量+
+		if(backstate){
+			vioceup();
+		}
+	}else if(obj.code == "KEY_VOLUMEDOWN"){
+		//音量-
+		if(backstate){
+			viocedown();
+		}
+	}else if(obj.code == "KEY_MUTE"){
+		//静音
+		if(backstate){
+			volMute();
+		}
+	}else if(obj.code == "KEY_SELECT"){
+		//暂定或播放
+		if(backstate){
+			play2();
+		}
+	}else if(obj.code == "KEY_BACK"){
+		//点击返回
+		back();
+	}else if(obj.code == "KEY_UTILITY"){
+		//播放事件
+		if(backstate){
+			goUtility();
+		}  
+	}
+}
+
+//训练未完成点击取消
+$(".giveup").click(function(){
+	//此处请求接口把训练时间等信息返送给后台
+	//释放播放器资源
+	//mp.releaseMediaPlayer(mp.getNativePlayerInstanceID());
+	submitMin(mp.getCurrentPlayTime(),playUrl,0);
+	//window.history.go(-1);
+});
+//训练未完成点击确定 返回
+$(".continue").click(function(){
+	//返回
+	$(".no-finshed").hide();
+	backstate = true;
+	speed = 1;
+	mp.resume();
+});
+//训练完成点击确定 返回
+$(".finshOk").click(function(){
+	//返回
+	//此处请求接口把训练时间等信息返送给后台
+	//mp.releaseMediaPlayer(mp.getNativePlayerInstanceID());
+	submitMin(mp.getMediaDuration(),playUrl,1);
+	//window.history.go(-1);
+});
+
+window.onload =function() {
+	start();
+}
+</script>
+</body>
+</html>

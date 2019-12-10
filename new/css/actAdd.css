@@ -1,0 +1,47 @@
+html,
+body {
+	width: 1280px;
+	height: 720px;
+}
+
+body {
+	background-color: black;
+	position: relative;
+	overflow: hidden;
+}
+.title{
+	height:50px;
+	font-size:48px;
+	font-weight:bold;
+	color:#FFFFFF;
+	line-height:50px;
+	margin-left: 81px;
+	margin-top: 41px;
+}
+.userBox{
+	width: 100%;
+	height: auto;
+}
+.userBox .user{
+	width: 160px;
+	height: 250px;
+	margin-left: 80px;
+	margin-top: 48px;
+	float: left;
+}
+.user .head{
+	width: 160px;
+	height: 160px;
+	border-radius: 50%;
+}
+.user .nowAccount{
+	margin-left: 20px;
+	margin-top: 19px;
+}
+.user .name{
+	width: 100%;
+	text-align: center;
+	font-size: 18px;
+	color: #CCCCCC;
+	margin-top: 16px;
+}

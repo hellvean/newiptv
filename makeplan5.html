@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="page-view-size" content="1280*720" />
+<link rel="stylesheet" href="css/reset.css" />
+<title></title>
+<style>
+.content{
+	width: 1120px;
+	height: 560px;
+	position: relative;
+	background: url(images/makeplan/bg.png) no-repeat center;
+	background-size: 100% 100%;
+	padding: 80px;
+}
+.question{
+	color: #fff;
+	font-size: 36px;
+	margin-bottom: 60px;
+}
+.select-wrap{
+	padding: 0 100px;
+}
+.sex .sex-type{
+	text-align: center;
+	font-size:32px;
+	color: #FEFEFE;
+	margin-top: 15px;
+}
+</style>
+</head>
+<body>
+<div class="content">
+	<div class="question">5.您要锻炼的部位？</div>
+	<div class="select-wrap clean">
+		<a href="javascript:;" class="left sex man" data-type="1">
+			<img src="images/makeplan/5-1.png" />
+			<div class="sex-type" style="color: #FFCB05;">全身</div>
+		</a>
+		<a href="javascript:;" class="left sex man" style="margin: 0 220px;" data-type="2">
+			<img src="images/makeplan/5-2.png" />
+			<div class="sex-type">手臂</div>
+		</a>
+		<a href="javascript:;" class="left sex man" data-type="3">
+			<img src="images/makeplan/5-3.png" />
+			<div class="sex-type">腿部</div>
+		</a>
+		<a href="javascript:;" class="left sex man" style="margin-top: 20px;" data-type="4">
+			<img src="images/makeplan/5-4.png" />
+			<div class="sex-type">胸部</div>
+		</a>
+		<a href="javascript:;" class="left sex man" style="margin: 20px 220px 0;" data-type="5">
+			<img src="images/makeplan/5-5.png" />
+			<div class="sex-type">腹部</div>
+		</a>
+		<a href="javascript:;" class="left sex man" style="margin-top: 20px;" data-type="6">
+			<img src="images/makeplan/5-6.png" />
+			<div class="sex-type">臀部</div>
+		</a>
+	</div>
+</div>
+<script src="js/jquery-1.8.0.js"></script>
+<script src="js/template-web.js"></script>
+<script src="js/tool.js"></script>
+<script>
+var man = [
+	"images/makeplan/5-1.png",
+	"images/makeplan/5-2.png",
+	"images/makeplan/5-3.png",
+	"images/makeplan/5-4.png",
+	"images/makeplan/5-5.png",
+	"images/makeplan/5-6.png",
+	"images/makeplan/5-1-focus.png",
+	"images/makeplan/5-2-focus.png",
+	"images/makeplan/5-3-focus.png",
+	"images/makeplan/5-4-focus.png",
+	"images/makeplan/5-5-focus.png",
+	"images/makeplan/5-6-focus.png",
+];
+	
+$(".man").focus(function(){
+	var index = parseInt($(this).attr("data-type")) + 5;
+	$(this).find("img").attr("src",man[index]);
+	$(this).find(".sex-type").css("color","#FFCB05");
+}).blur(function(){
+	var index = parseInt($(this).attr("data-type")) - 1;
+	$(this).find("img").attr("src",man[index]);
+	$(this).find(".sex-type").css("color","#FEFEFE");
+});
+
+$(".sex").eq(0).focus();
+
+$(".sex").click(function(){
+	window.location.href = "makeplan6.html?gender="+tool.getParam("gender")+"&weight="+tool.getParam("weight")+"&baseType="+tool.getParam("baseType")+"&targetType="+tool.getParam("targetType")+"&partType="+$(this).attr("data-type");
+})
+
+//返回事件
+function back(){
+	//重置一部分Cookie
+	window.history.go(-1);
+}
+	
+//遥控器事件
+function eventHandler(obj){
+	if(obj.code == "KEY_BACK"){
+		//点击返回
+		back();
+ 	}
+}
+</script>
+</body>
+</html>

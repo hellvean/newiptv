@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="page-view-size" content="1280*720" />
+<link rel="stylesheet" href="css/reset.css" />
+<title></title>
+<style>
+.content{
+	width: 1280px;
+	height: 720px;
+	position: relative;
+	background: url(images/sirendingzhi/bg.png) no-repeat center;
+	background-size: 100% 100%;
+}
+.head{
+	padding: 40px 80px 0;
+}
+.title{
+	width:384px;
+	height:50px;
+	font-size:48px;
+	font-weight:bold;
+	color:#fff;
+	line-height: 50px;
+}
+.doing{
+	width: 104px;
+	height:50px;
+	font-size: 24px;
+	font-weight: 400;
+	color:rgba(255,203,5,1);
+	margin-left: 20px;
+	line-height: 50px;
+}
+/* .doing b{
+	width:14px;
+	height:14px;
+	background:rgba(255,203,5,1);
+	border-radius:50%;
+	margin-right: 10px;
+} */
+.username{
+	height:50px;
+	line-height: 50px;
+	/* background: url(images/sirendingzhi/userimg.png) no-repeat center right; */
+	color:#fff;
+	font-size:24px;
+	background-position: center right;
+	background-repeat: no-repeat;
+	background-size: 48px 48px;
+	padding-right: 56px;
+}
+.days{
+	width: 1080px;
+	height: 80px;
+	background: url(images/sirendingzhi/days-bg.png) no-repeat center;
+	background-size: 100% 100%;
+	margin: 30px auto 0;
+	padding: 20px;
+	position: relative;
+}
+.hasfinshed{
+	position: absolute;
+	bottom: 5px;
+	left: 40%;
+}
+.days-item{
+	width: 96px;
+	height: 76px;
+	margin-right: 20px;
+	position: relative;
+	padding: 2px;
+	background: none;
+	border-radius: 6px;
+}
+.days-item img:first-child{
+	width: 100%;
+	height: 100%;
+}
+.vip{
+	position: absolute;
+	top: -10px;
+	left: -10px;
+	z-index: 99;
+}
+.days-item > div{
+	width: 96px;
+	height: 76px;
+	line-height: 76px;
+	text-align: center;
+	color: #CCCCCC;
+	font-weight: 600;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 9;
+	font-size:24px;
+}
+.days-item .days-bg{
+	width: 96px;
+	height: 76px;
+}
+.reset{
+	margin-left: 40px;
+}
+.reset img{
+	width: 200px;
+}
+.process{
+	height: 6px;
+	width: 820px;
+	position: absolute;
+	bottom:0;
+	background: url(images/sirendingzhi/process.png) no-repeat center;
+	background-size: 100% 100%;
+	left: 20px;
+	border-radius: 3px;
+}
+.process-bar{
+	background: rgba(255,203,5,1);
+	height: 6px;
+	border-radius: 3px;
+}
+.lession{
+	width:1120px;
+	height:40px;
+	margin: 30px auto 0;
+}
+.all-lession{
+	font-size:24px;
+	font-weight:400;
+	color: #CCCCCC;
+	line-height: 40px;
+	margin-left: 10px;
+}
+.today-lession{
+	font-size:32px;
+	font-weight:400;
+	color: #fff;
+	line-height: 40px;
+}
+.lession-content{
+	width: 1120px;
+	margin: 20px auto 0;
+	font-size: 0;
+	position: relative;
+}
+.lession-wrap{
+	background: none;
+	width: 534px;
+	height: 344px;
+	border-radius:10px;
+	position: absolute;
+	padding: 2px;
+}
+.lession-wrap img{
+	width: 534px;
+	height: 344px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	border-radius: 16px;
+}
+.lession-wrap .zoom-out{
+	width: 554px;
+	height: 364px;
+	top: -10px;
+	left: -10px;
+	border: 4px solid rgba(255,203,5,1);
+	border-radius: 14px;
+}
+.lession-title{
+	width: 500px;
+	height: 80px;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	padding: 20px;
+}
+.lession-biaoti{
+	height:46px;
+	font-size:32px;
+	font-weight:bold;
+	color:rgba(255,255,255,1);
+	line-height:46px;
+}
+.lession-state1{
+	width: 104px;
+	height:50px;
+	font-size: 24px;
+	font-weight: 400;
+	color:rgba(255,203,5,1);
+	margin-left: 20px;
+	line-height: 50px;
+}
+.lession-state1 b{
+	width:14px;
+	height:14px;
+	background:rgba(255,203,5,1);
+	border-radius:50%;
+	margin-right: 10px;
+}
+.lession-state2{
+	width: 104px;
+	height:50px;
+	font-size: 24px;
+	font-weight: 400;
+	color:#42D084;
+	margin-left: 20px;
+	line-height: 50px;
+}
+.lession-state2 b{
+	width:14px;
+	height:14px;
+	border-radius:50%;
+	margin-right: 10px;
+	border:2px solid #42D084;
+	background: none;
+}
+.lession-xiaohao{
+	width:180px;
+	height:30px;
+	font-size:18px;
+	font-weight:400;
+	color:rgba(204,204,204,1);
+	line-height: 30px;
+	margin-top: 5px;
+	background: url(images/sirendingzhi/xiaohao.png) no-repeat center left;
+	padding-left: 30px;
+}
+.lession-time{
+	width:170px;
+	height:30px;
+	font-size:18px;
+	font-weight:400;
+	color:rgba(204,204,204,1);
+	text-align: right;
+	line-height: 30px;
+	margin-top: 5px;
+	background: url(images/sirendingzhi/time.png) no-repeat center left;
+}
+</style>
+</head>
+<body>
+<a href="javascript:;" id="click" style="display: none;"></a>
+<div class="content">
+	<script type="text/html" id="content">
+		<div class="head clean">
+			<div class="title left">全身增肌高级计划</div>
+			<div class="doing left">
+				{{if data.isComplete == 0}}
+					<img style="margin-top: 5px;" src="images/sirendingzhi/doing.png" />
+				{{else}}
+					<img style="margin-top: 5px;" src="images/sirendingzhi/finshed.png" />
+				{{/if}}
+			</div>
+			<div class="username right">小酷</div>
+		</div>
+		<div class="days">
+			<a href="javascript:;" class="days-item left" data-index="1" data-vip="0">
+				<div>第1天</div>
+				<img class="days-bg" src="images/sirendingzhi/days.png" />
+				{{if data.lessons[0][0].isTrain == 1 && data.lessons[0][1].isTrain == 1}}
+				<img class="hasfinshed" src="images/sirendingzhi/daysfinshed.png" />
+				{{/if}}
+			</a>
+			<a href="javascript:;" class="days-item left" data-index="2" data-vip="1">
+				<div>第2天</div>
+				<img class="days-bg" src="images/sirendingzhi/days.png" />
+				<img class="vip" src="images/sirendingzhi/vip.png" />
+				{{if data.lessons[1][0].isTrain == 1 && data.lessons[1][1].isTrain == 1}}
+				<img class="hasfinshed" src="images/sirendingzhi/daysfinshed.png" />
+				{{/if}}
+			</a>
+			<a href="javascript:;" class="days-item left" data-index="3" data-vip="1">
+				<div>第3天</div>
+				<img class="days-bg" src="images/sirendingzhi/days.png" />
+				<img class="vip" src="images/sirendingzhi/vip.png" />
+				{{if data.lessons[2][0].isTrain == 1 && data.lessons[2][1].isTrain == 1}}
+				<img class="hasfinshed" src="images/sirendingzhi/daysfinshed.png" />
+				{{/if}}
+			</a>
+			<a href="javascript:;" class="days-item left" data-index="4" data-vip="1">
+				<div>第4天</div>
+				<img class="days-bg" src="images/sirendingzhi/days.png" />
+				<img class="vip" src="images/sirendingzhi/vip.png" />
+				{{if data.lessons[3][0].isTrain == 1 && data.lessons[3][1].isTrain == 1}}
+				<img class="hasfinshed" src="images/sirendingzhi/daysfinshed.png" />
+				{{/if}}
+			</a>
+			<a href="javascript:;" class="days-item left" data-index="5" data-vip="1">
+				<div>第5天</div>
+				<img class="days-bg" src="images/sirendingzhi/days.png" />
+				<img class="vip" src="images/sirendingzhi/vip.png" />
+				{{if data.lessons[4][0].isTrain == 1 && data.lessons[4][1].isTrain == 1}}
+				<img class="hasfinshed" src="images/sirendingzhi/daysfinshed.png" />
+				{{/if}}
+			</a>
+			<a href="javascript:;" class="days-item left" data-index="6" data-vip="1">
+				<div>第6天</div>
+				<img class="days-bg" src="images/sirendingzhi/days.png" />
+				<img class="vip" src="images/sirendingzhi/vip.png" />
+				{{if data.lessons[5][0].isTrain == 1 && data.lessons[5][1].isTrain == 1}}
+				<img class="hasfinshed" src="images/sirendingzhi/daysfinshed.png" />
+				{{/if}}
+			</a>
+			<a href="javascript:;" class="days-item left" data-index="7" data-vip="1">
+				<div>第7天</div>
+				<img class="days-bg" src="images/sirendingzhi/days.png" />
+				<img class="vip" src="images/sirendingzhi/vip.png" />
+				{{if data.lessons[6][0].isTrain == 1 && data.lessons[6][1].isTrain == 1}}
+				<img class="hasfinshed" src="images/sirendingzhi/daysfinshed.png" />
+				{{/if}}
+			</a>
+			<a href="javascript:;" class="reset left">
+				<img src="images/sirendingzhi/reset.png" />
+			</a>
+			<div class="process">
+				{{if data.pastDays == 1}}
+					<div class="process-bar" style="width: 100px;"></div>
+				{{else if data.pastDays == 2}}
+					<div class="process-bar" style="width: 220px;"></div>
+				{{else if data.pastDays == 3}}
+					<div class="process-bar" style="width: 340px;"></div>
+				{{else if data.pastDays == 4}}
+					<div class="process-bar" style="width: 460px;"></div>
+				{{else if data.pastDays == 5}}
+					<div class="process-bar" style="width: 580px;"></div>
+				{{else if data.pastDays == 6}}
+					<div class="process-bar" style="width: 600px;"></div>
+				{{else if data.pastDays >= 7}}
+					<div class="process-bar" style="width: 100%"></div>
+				{{/if}}
+			</div>
+		</div>
+		<div class="lession">
+			<div class="today-lession left">今天有2个课程</div>
+			<div class="all-lession left">总共有{{data.totalPlanNum}}个课程</div>
+		</div>
+		<div class="clean lession-content">
+			<a href="javascript:;" class="lession-wrap" style="left: 0;" data-index="0">
+				<img class="lession-cover" src="" />
+				<div class="lession-title">
+					<div class="clean">
+						<div class="left lession-biaoti"></div>
+						<div class="right lession-state"></div>
+					</div>
+					<div class="clean">
+						<div class="left lession-xiaohao"></div>
+						<div class="right lession-time"></div>
+					</div>
+				</div>
+			</a>
+			<a href="javascript:;" class="lession-wrap" style="right: 0;" data-index="1">
+				<img class="lession-cover" src="" />
+				<div class="lession-title">
+					<div class="clean">
+						<div class="left lession-biaoti"></div>
+						<div class="right lession-state"></div>
+					</div>
+					<div class="clean">
+						<div class="left lession-xiaohao"></div>
+						<div class="right lession-time"></div>
+					</div>
+				</div>
+			</a>
+		</div>
+	</script>
+</div>
+<!-- <div class="childlock" style="position: absolute;width: 1280px;height: 720px;top: 0;left: 0;z-index: 99;display: none;">
+	<img src="images/lessiondetail/childlock.png" style="position: absolute;width: 1280px;height: 720px;top: 0;left: 0;">
+	<a href="javascript:;" class="finshOk" style="position: absolute;top: 475px;right: 300px;">
+		<img src="images/play/ok.png" />
+	</a>
+</div> -->
+<!-- <div style="display: none;">
+	<form id="formAct" action="http://10.253.255.42:14521/childLock/jumpLockStat" method="post">
+		<input name="result" value="" class="result"/>
+		<input name="userId" value="" class="userId"/>
+		<input name="productId" value="" class="productId"/>
+		<input name="backUrl" value="" class="backUrl"/>
+	</form>
+</div> -->
+<script src="js/jquery-1.8.0.js"></script>
+<script src="js/template-web.js"></script>
+<script src="js/tool.js"></script>
+<!-- <script src="js/sdk.config.js"></script>
+<script src="js/sdk.1.8.4.min.js?v=1.0"></script> -->
+<script src="js/sdk.config1.8.3.js"></script>
+<script src="js/sdk.1.8.3.min.js"></script>
+<script>
+	
+tool.setLog(tool.getCookie("masterId"),"私人定制计划页面",window.location.href);
+	
+var ossUserId = tool.getCookie("ossUserId");
+var IP = tool.getIP();
+
+var focusArea = 1; ////聚焦位置 1为上方天数 2为下方课程
+var currentDay = 0 //当前聚焦天数的位置
+
+//时间秒数转时间格式00:00:00
+function secondToDate(result) {
+	var m = Math.floor((result / 60 % 60)) < 10 ? '0' + Math.floor((result / 60 % 60)) : Math.floor((result / 60 % 60));
+	var s = Math.floor((result % 60)) < 10 ? '0' + Math.floor((result % 60)) : Math.floor((result % 60));
+	return result = m + ":" + s;
+}
+
+//渲染课程
+function showLession(lessionList){
+	for(var i=0;i<lessionList.length;i++){
+		$(".lession-wrap").eq(i).attr("data-lessionid",lessionList[i].id);
+		$(".lession-cover").eq(i).attr("src",lessionList[i].lessonBanner3);
+		$(".lession-biaoti").eq(i).html(lessionList[i].lessonName);
+		$(".lession-xiaohao").eq(i).html("消耗卡路里："+lessionList[i].caloriesc+"卡");
+		$(".lession-time").eq(i).html("运动时长："+secondToDate(lessionList[i].duration));
+		if(lessionList[i].isTrain == 0){
+			$(".lession-state").eq(i).addClass("lession-state2").html("<b></b>进行中");
+		}else{
+			$(".lession-state").eq(i).addClass("lession-state1").html("<b></b>已完成");
+		}
+	}
+}
+
+//点击触发数据初始化事件
+document.getElementById("click").onclick = function(res){
+	 init(res);
+}
+
+var data;
+$.ajax({
+	url: IP+"tvFitUserPlan/myPlan?ossUserId="+ossUserId,
+	type: "get",
+	success: function(res){
+		console.log(JSON.stringify(res));
+		if(res.code == 0){
+			data = res.result;
+			document.getElementById("click").onclick(data);
+			$.ajax({
+				url: IP+"adminUser/queryById?id="+ossUserId,
+				type: "get",
+				success: function(res2){
+					console.log(JSON.stringify(res2));
+					$(".username").css("background-image","url("+res2.result.userTemplate.image+")").html(res2.result.userTemplate.userName);
+				},
+				error: function(error){
+					
+				}
+			})
+		}
+	},
+	error:function(error){
+		console.log(JSON.stringify(error));
+	}
+})
+var isvip;
+function init(res) {
+	document.getElementsByClassName("content")[0].innerHTML = template('content', {
+		data: res
+	});
+	
+	$(".days .days-item").focus(function(){
+		focusArea = 1;
+		$(this).siblings().find(".days-bg").attr("src","images/sirendingzhi/days.png");
+		$(this).siblings().find("div").css("color","#fff");
+		
+		$(this).find(".days-bg").attr("src","images/sirendingzhi/day-focus.png");
+		$(this).find("div").css("color","#333");
+		if($(this).find(".hasfinshed").length > 0){
+			$(this).find(".hasfinshed").attr("src","images/sirendingzhi/daysfinshed-focus.png")
+		};
+		currentDay = parseInt($(this).attr("data-index")) - 1;
+		showLession(data.lessons[$(this).attr("data-index") - 1]);
+		isvip = $(this).attr("data-vip");
+	}).blur(function(){
+		if($(this).find(".hasfinshed").length > 0){
+			$(this).find(".hasfinshed").attr("src","images/sirendingzhi/daysfinshed.png")
+		}
+	});
+	
+	$(".reset").focus(function(){
+		$(this).find("img").attr("src","images/sirendingzhi/resetfocus.png");
+	}).blur(function(){
+		$(this).find("img").attr("src","images/sirendingzhi/reset.png");
+	});
+	$(".reset").click(function(){
+		window.location.href = "makeplan1.html";
+	})
+	
+	$(".lession-wrap").focus(function(){
+		focusArea = 2;
+		$(this).find("img").addClass("zoom-out");
+	}).blur(function(){
+		$(this).find("img").removeClass("zoom-out");
+	});
+	
+	$(".lession-wrap").click(function(){
+		var lessonid = $(this).attr("data-lessionid");
+		//鉴权
+		if(isvip == '1'){
+			
+			console.log(isvip);
+			/* 订购产品 */
+			function orderProduct(productId,customerId,contentId,contentName,price,redirectUrl,failUrl,productIdThird) {
+			    var boxId = "";
+			    var productId = productId;
+				var customerId = customerId;
+				//var customerId = "test0322";
+			    //var customerId = Authentication.CTCGetConfig("UserID");
+			    var contentId = contentId;
+			    var contentName = contentName;
+			    var price = price;
+			    var redirectUrl = redirectUrl;
+			    var failUrl = failUrl;
+			    var broadbandid = customerId;
+			    var param2 = "";
+			    var param3 = "";
+			    var param4 = productIdThird;
+			    var param5 = "";
+			    var userCode = "";
+			    var productIdThird = productIdThird;
+			    var platform = "";
+			    var payVersion = "8004";
+			    var payChannelId = "30239";
+			    var payAppId = "117951805";
+			    var payAppName = "河南沃家游戏";
+			    var payUA = "OTHERTVSTORE_HENANTV";
+				console.log(productId, customerId, contentId, contentName, price, redirectUrl, failUrl);
+			    sdk.doOrderProduct(boxId, productId, customerId, contentId, contentName, price, redirectUrl, failUrl, broadbandid, param2, param3, param4, param5, userCode, productIdThird, platform, payVersion, payChannelId, payAppId, payAppName, payUA, function (resultCode, resultMsg) {
+			            console.log("resultCode:" + resultCode + ";resultMsg:" + resultMsg);
+			            //tool.alertLog("resultCode:" + resultCode + ";resultMsg:" + resultMsg)
+			        }
+			    );
+			}
+			/* 鉴权	*/
+			function getProducts() {
+			    var contentId = "2476005600";
+			    //var contentId = "productIDa1000000000000000000009";
+				//var customerId = "test032403";
+				var customerId = Authentication.CTCGetConfig("UserID");
+				var productIds = new Array();
+				productIds[0] = "1110000234";
+				//productIds[0] = "1110000000";
+				//productIds[1] = "1000000059";
+				var userCode = "";
+				var productIdThirds = null;
+			    sdk.doGetProducts(contentId, customerId, productIds, userCode, productIdThirds, function (resultCode, resultMsg) {
+			        //console.log(resultCode,JSON.parse(resultMsg).list);
+					//获取订购产品相关参数
+					var list = JSON.parse(resultMsg).list ? JSON.parse(resultMsg).list[0] : [];
+					//orderProduct(list.productId,customerId,list.contentId,list.productName,list.productPrice,window.location.href,"http://10.253.255.149:5124/tv/index.html");
+					if(resultCode == 1){
+						//获取用户订购产品列表信息 没有本产品的情况下前往订购
+						
+						if(list.status == 0 || list.status == 2){
+							//未订购
+							if(tool.getParam("backtype") == "personal"){
+								//从个人中心跳转过来
+								orderProduct(list.productId,customerId,list.contentId,list.productName,list.productPrice,"http://10.253.255.149:5124/tv/paysuccess.html?backurl=sirendingzhipersonal","http://10.253.255.149:5124/tv/payfail.html?backurl=sirendingzhiperson",list.productIdThird);
+							}else{
+								orderProduct(list.productId,customerId,list.contentId,list.productName,list.productPrice,"http://10.253.255.149:5124/tv/paysuccess.html?backurl=sirendingzhi","http://10.253.255.149:5124/tv/payfail.html?backurl=sirendingzhi",list.productIdThird);
+							}
+						}else{
+							//已订购
+							window.location.href = "sirendingzhidetail.html?lessonid="+lessonid+"&backtype="+tool.getParam("backtype")
+						}
+						
+						// sdk.doListUserOrders(customerId, function (resultCode2, resultMsg2) {
+						// 	if(resultCode2 == 1){
+						// 		var orderList = JSON.parse(resultMsg2).list ? JSON.parse(resultMsg2).list : [];
+						// 		var canPay = true;
+						// 		for(var i=0;i<orderList.length;i++){
+						// 			if(orderList[i].contentName == list.productName){
+						// 				canPay = false;
+						// 				break;
+						// 			}
+						// 		};
+						// 		if(canPay){
+						// 			if(tool.getParam("backtype") == "personal"){
+						// 				//从个人中心跳转过来
+						// 				orderProduct(list.productId,customerId,list.contentId,list.productName,list.productPrice,"http://10.253.255.149:5124/tv/paysuccess.html?backurl=sirendingzhipersonal","http://10.253.255.149:5124/tv/payfail.html?backurl=sirendingzhiperson",list.productIdThird);
+						// 			}else{
+						// 				orderProduct(list.productId,customerId,list.contentId,list.productName,list.productPrice,"http://10.253.255.149:5124/tv/paysuccess.html?backurl=sirendingzhi","http://10.253.255.149:5124/tv/payfail.html?backurl=sirendingzhi",list.productIdThird);
+						// 			}
+						// 		}else{
+						// 			window.location.href = "sirendingzhidetail.html?lessonid="+lessonid+"&backtype="+tool.getParam("backtype")
+						// 		}
+						// 	}
+						// });
+					}
+			    });
+			};
+			//这里判断童锁
+			getProducts();
+			// $.ajax({
+			// 	type:"get",
+			// 	url:"http://10.253.255.42:14521/childLock/validate/"+Authentication.CTCGetConfig("UserID")+"/1110000000",
+			// 	data:{
+			// 		userId: Authentication.CTCGetConfig("UserID"),
+			// 		productId: "1110000000"
+			// 	},
+			// 	success:function(res){
+			// 		if(res == true){
+			// 			// $(".childlock").show(function(){
+			// 			// 	$(".finshOk").focus();
+			// 			// })
+						
+			// 			$('.userId').val(Authentication.CTCGetConfig("UserID"));
+			// 			$('.productId').val("1110000000");
+			// 			$('.backUrl').val(encodeURI("http://10.253.255.149:5124/tv/sirendingzhi.html?id=2"));
+			// 			$('.result').val(res);
+						
+			// 			$('#formAct').submit();
+						
+			// 		}else{
+			// 			getProducts();
+			// 		}
+			// 	}
+			// });
+		}else{
+			
+			tool.setCookie("focusdays",currentDay);
+			tool.setCookie("focusClass_sirendingzhi",$(this).attr("data-index"));
+			window.location.href = "sirendingzhidetail.html?lessonid="+lessonid;
+			
+		}
+		
+	});
+	// $(".finshOk").click(function(){
+	// 	$(".childlock").hide(function(){
+	// 		$(".diversity-wrap:eq("+currentFenji+") .diversity-item:first").focus();
+	// 	});
+	// });
+	
+	if(tool.getCookie("focusClass_sirendingzhi")){
+		$(".days .days-item:eq("+tool.getCookie("focusdays")+")").focus();
+		currentDay = tool.getCookie("focusdays");
+		setTimeout(function(){
+			$(".lession-wrap").eq(tool.getCookie("focusClass_sirendingzhi")).focus();
+		},500)
+	}else{
+		data.pastDays = data.pastDays <= 7 ? data.pastDays : 7;
+		$(".days .days-item:eq("+(data.pastDays-1)+")").focus();
+	}
+	
+	$("#click").remove();
+	
+}
+
+function up(){
+	if(focusArea == 2){
+		//聚焦在选中的天数上
+		$(".days .days-item:eq("+currentDay+")").focus();
+	}
+};
+
+function down(){
+	if(focusArea == 1){
+		//聚焦在下方第一个课程上
+		$(".lession-wrap").eq(0).focus();
+	}
+}
+
+//返回事件
+function back(){
+	//重置一部分Cookie
+	tool.setCookie("focusdays","");
+	tool.setCookie("focusClass_sirendingzhi","");
+	//window.location.href = "index.html";
+	if(tool.getParam("backtype") == "makeplan6"){
+		window.location.href = "index.html";
+	}else if(tool.getParam("backtype") == "sirendingzhi"){
+		window.location.href = "index.html";
+	}else if(tool.getParam("backtype") == "sirendingzhipersonal" || tool.getParam("backtype") == "personal"){
+		window.location.href = "personal.html";
+	}else{
+		window.location.href = "index.html";
+	}
+}
+	
+//遥控器事件
+function eventHandler(obj){
+	if(obj.code == "KEY_BACK"){
+		//点击返回
+		back();
+	}else if(obj.code == "KEY_UP"){
+		up();
+	}else if(obj.code == "KEY_DOWN"){
+		down();
+	}
+}
+</script>
+</body>
+</html>

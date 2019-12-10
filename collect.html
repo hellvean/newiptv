@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>我的收藏</title>
+		<meta name="page-view-size" content="1280*720" />
+		<meta http-equiv="Page-Enter" content="blendTrans(Duration=1.0)" />
+		<link rel="stylesheet" type="text/css" href="new/css/reset.css"/>
+		<link rel="stylesheet" type="text/css" href="new/css/collect.css"/>
+	</head>
+	<body>
+		<div class="title">我的收藏</div>
+		<div class="lesNum">
+			共收藏<span style="font-size: 32px;color: #FFCB05;font-weight: bold;" class="lessNum">0</span>个课程
+		</div>
+		<div class="nothing hide">
+			<img src="new/img/personal/noCollect.png" class="tipPic"/>
+			<div class="tip">您还没有收藏任何节目哦～</div>
+			<div class="guessLike">
+				<!--<a href="javascript:void(0)" class="gulItem">
+					<img src="../img/personal/bot-left.png" class="pic"/>
+					<div class="guessName">背部增肌训练</div>
+					
+				</a>
+				<a href="javascript:void(0)" class="gulItem">
+					<img src="../img/personal/bot-left.png" class="pic"/>
+					<div class="guessName">背部增肌训练</div>
+				</a>
+				<a href="javascript:void(0)" class="gulItem">
+					<img src="../img/personal/bot-left.png" class="pic"/>
+					<div class="guessName">背部增肌训练</div>
+				</a>
+				<a href="javascript:void(0)" class="gulItem">
+					<img src="../img/personal/bot-left.png" class="pic"/>
+					<div class="guessName">背部增肌训练</div>
+				</a>
+				<a href="javascript:void(0)" class="gulItem">
+					<img src="../img/personal/bot-left.png" class="pic"/>
+					<div class="guessName">背部增肌训练</div>
+				</a>-->
+			</div>
+		</div>
+		<div class="collect">
+			<!--<div class="gulItem">
+				<a href="javascript:void(0)" class="itemA">
+					<img src="../img/personal/bot-left.png" class="pic"/>
+				</a>
+				<div class="guessName">背部增肌训练</div>
+			</div>
+			<div class="gulItem">
+				<a href="javascript:void(0)" class="itemA">
+					<img src="../img/personal/bot-left.png" class="pic"/>
+				</a>
+				<div class="guessName">背部增肌训练</div>
+			</div>
+			<div class="gulItem">
+				<a href="javascript:void(0)" class="itemA">
+					<img src="../img/personal/bot-left.png" class="pic"/>
+				</a>
+				<div class="guessName">背部增肌训练</div>
+			</div>-->
+		</div>
+		<a href="javascript:void(0)" class="btn">
+			<img src="new/img/personal/manageB.png" />
+		</a>
+	</body>
+	<script src="new/js/jquery-1.8.0.js"></script>
+	<script src="new/js/Defsjs.js"></script>
+	<script>
+		$('.guessLike').on('focus','.gulItem',function(){
+			var html = "<img src='new/img/personal/ju.png' class='guessBorder'/>"
+			$(this).append(html)
+			$(this).addClass('guessFocus')
+		})
+		$('.guessLike').on('blur','.gulItem',function(){
+			$(this).find('.guessBorder').remove()
+			$(this).removeClass('guessFocus')
+		})
+		
+		
+		$('.btn').focus(function(){
+			$(this).find('img').attr('src','new/img/enterInfo/manageF.png')
+		}).blur(function(){
+			$(this).find('img').attr('src','new/img/enterInfo/manageB.png')
+		})
+		
+		
+		$('.collect').on('focus','.itemA',function(){
+			$(this).parent().css('opacity',1)
+			$(this).addClass('btnFocus')
+		})
+		$('.collect').on('blur','.itemA',function(){
+			$(this).parent().css('opacity',0.4)
+			$(this).removeClass('btnFocus')
+		})
+		$('.collect').on('click','.itemA',function(){
+			var lessonId = $(this).attr('data-id')
+			window.location.href = "lessiondetail.html?lessonid="+lessonId+"&backtype=personal"
+		})
+		$('.guessLike').on('click','.gulItem',function(){
+			var lessonId = $(this).attr('data-id')
+			window.location.href = "lessiondetail.html?lessonid="+lessonId+"&backtype=personal"
+		})
+		
+		$('.btn').click(function(){
+			window.location.href = 'coltManage.html'
+		})
+		$('.btn').focus()
+		
+//		tool.alertLog(ossUserId)
+		
+		$.ajax({   //我的收藏
+			type:"get",
+			url:ip+"tvCollection/listAll",
+			async:true,
+			data:{
+				ossUserId:ossUserId
+			},
+			success:function(res){
+				var oData = res['result']
+				$('.lessNum').html(oData.length)
+				var ohtml = "";
+				if(oData.length>0){
+					$.each(oData, function(key,val) {
+						ohtml+="<div class='gulItem'>"
+									+"<a href='javascript:void(0)' class='itemA' data-id="+ val.lessonId +">"
+										+"<img class='pic' src="+ val['lesson']['lessonBanner1']+"/>"
+									+"</a>"
+									+"<div class='guessName'>"+ val['lesson']['lessonName'] +"</div>"
+								+"</div>"
+					});
+					$('.collect').append(ohtml)
+				}else if(oData.length ==0){
+					$('.collect').addClass('hide')
+					$('.nothing').removeClass('hide')
+				}
+			}
+		});
+		
+		
+		$.ajax({   //猜你喜欢
+			type:"get",
+			url:ip+"adminLesson/guessLike",
+			async:true,
+			success:function(res){
+				var oData1 = res['result']
+				var ohtml1 = "" ;				
+				$.each(oData1, function(key,val) {
+					var imgSrc = val['lessonBanner2']
+					ohtml1+="<a href='javascript:void(0)' class='gulItem' data-id ="+ val.id +">"
+								+"<img class='pic' src="+ imgSrc +"/>"
+								+"<div class='guessName'>"+ val['lessonName'] +"</div>"
+							+"</a>"
+				});
+				
+				$('.guessLike').append(ohtml1)
+			}
+		});
+		
+		function eventHandler(obj){
+	        if(obj.code == "KEY_BACK"){//返回
+	            //window.history.back(-1)
+				window.location.href = "personal.html";
+	        }
+	    }
+	</script>
+</html>
